@@ -1,22 +1,49 @@
+// Demo version(1.0)
+
 let config = {
-    type: Phaser.CANVAS,
-    width: 640,
+    type: Phaser.AUTO,
+    width: 800,
     height: 480,
-    scene: [Menu, Game]
-}
+    // scale: {
+    //     autoCenter: Phaser.Scale.CENTER_BOTH
+    // },
+    physics: {
+        default: 'arcade',
+        arcade: {
+            debug: false,
+            gravity: {
+                y: 230
+            }
+        }
+    },
+    scene: [Load, Menu, Play ]
+};
+
 let game = new Phaser.Game(config);
 
-//set UI
-let borderUISize = game.config.height / 15;
-let borderPadding = borderUISize / 3;
-let starSpeed = 4;
-let score = 0;
-let highScore = 0;
-let twoPlayers = false;
-let platforms;
-let player;
+//reserve keyboard variables
+let keySPACE, keyUP, keyDOWN, keyF, keyR, keyQ;
+
+//define Game Settings
+game.settings = {
+    initialLevel: 0,
+    initialSpeed: 1,
+}
+
+// define globals
 let cursors;
-
-
-//reserve ketboard bindings
-let keyUP, keyR, keyLEFT, keyRIGHT, keyT, keyW, keyA, keyD;
+let currentScene = 0;
+const SCALE = 1;
+const tileSize = 27;
+let playMusic;
+let centerX = game.config.width/2;
+let centerY = game.config.height/2;
+const textSpacer = 50;
+let level;
+let score;
+let health;
+let highScore;
+let newHighScore = false;
+let Gameover;
+let keyLEFT;
+let keyRIGHT;
