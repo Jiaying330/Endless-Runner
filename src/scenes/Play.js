@@ -17,7 +17,7 @@ class Play extends Phaser.Scene {
         this.obstacle1Speed = -500;
         score = 0;
         level = 0;
-        health = 1;
+        health = 20;
         Gameover = false;
         this.levelup = true;
         this.addSpeed = 0;
