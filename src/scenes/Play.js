@@ -8,13 +8,13 @@ class Play extends Phaser.Scene {
         this.JUMP_VELOCITY = -700;
         this.MAX_JUMPS = 2;
         this.Speedup = 0;
-        this.virusSpeedup = 0;
+        this.obstacleSpeedup = 0;
         this.physics.world.gravity.y = 2600;
         this.itemSpeed1 = -400;
         this.itemSpeed2 = -480;
         this.itemSpeed3 = -530;
-        this.virus1Speed = -100;
-        this.virus2Speed = -500;
+        this.cactusSpeed = -100;
+        this.obstacle1Speed = -500;
         score = 0;
         level = 0;
         health = 1;
@@ -61,18 +61,18 @@ class Play extends Phaser.Scene {
         });
 
         //add items
-        this.maskGroup = this.add.group({
+        this.object1Group = this.add.group({
             runChildUpdate: true
         });
-        this.sanitizerGroup = this.add.group({
+        this.object2Group = this.add.group({
             runChildUpdate: true
         });
 
-        //add virus
-        this.virus1Group = this.add.group({
+        //add obstacle
+        this.cactusGroup = this.add.group({
             runChildUpdate: true
         });
-        this.virus2Group = this.add.group({
+        this.obstacle1Group = this.add.group({
             runChildUpdate: true
         });
 
@@ -99,26 +99,25 @@ class Play extends Phaser.Scene {
     }
 
     //add items
-    addMask() {
-        let mask = new Object1(this, this.itemSpeed1).setScale(1.5);
-        this.maskGroup.add(mask);
+    addObject1() {
+        let object1 = new Object1(this, this.itemSpeed1).setScale(1.5);
+        this.object1Group.add(object1);
     }
-    addSanitizer() {
-        let sanitizer = new Object2(this, this.itemSpeed2).setScale(1.5);
-        this.sanitizerGroup.add(sanitizer);
+    addObject2() {
+        let object2 = new Object2(this, this.itemSpeed2).setScale(1.5);
+        this.object2Group.add(object2);
     }
-    //add virus
-    addVirus1() {
-        let virus1 = new Cactus(this, this.virus1Speed).setScale(1.0);
-        this.virus1Group.add(virus1);
+    //add obstacle
+    addCactus() {
+        let cactus = new Cactus(this, this.cactusSpeed).setScale(1.0);
+        this.cactusGroup.add(cactus);
     }
-    addVirus2() {
-        let virus2 = new Obstacle1(this, this.virus2Speed).setScale(1.1);
-        this.virus2Group.add(virus2);
+    addObstacle1() {
+        let obstacle1 = new Obstacle1(this, this.obstacle1Speed).setScale(1.1);
+        this.obstacle1Group.add(obstacle1);
     }
 
     update() {
-
         // update tile sprites (tweak for more "speed")
         this.background.PositionX += 0.5;
         this.city.tilePositionX += 1;
@@ -161,28 +160,27 @@ class Play extends Phaser.Scene {
         }
         //if not death,
         if (health > 0) {
-            if (this.physics.overlap(this.character, this.virus1Group)) {
-                this.virus1 = this.virus1Group.getFirst(true);
-                this.virus1.destroy();
-                this.virusCollision(this.virus1);
-                //this.addVirus1();
-                console.log("readd virus1");
+            if (this.physics.overlap(this.character, this.cactusGroup)) {
+                this.cactus1 = this.cactusGroup.getFirst(true);
+                this.cactus1.destroy();
+                this.obstacleCollision(this.cactus1);
+                console.log("readd cactus");
             }
-            if (this.physics.overlap(this.character, this.virus2Group)) {
-                this.virus2 = this.virus2Group.getFirst(true);
-                this.virus2.destroy();
-                this.virusCollision(this.virus2);
-                console.log("readd virus2");
+            if (this.physics.overlap(this.character, this.obstacle1Group)) {
+                this.obstacle1 = this.obstacle1Group.getFirst(true);
+                this.obstacle1.destroy();
+                this.obstacleCollision(this.obstacle1);
+                console.log("readd obstacle1");
             }
-            if (this.physics.overlap(this.character, this.maskGroup)) {
-                this.mask = this.maskGroup.getFirst(true);
-                this.mask.destroy();
-                this.itemCollision(this.mask);
+            if (this.physics.overlap(this.character, this.object1Group)) {
+                this.object1 = this.object1Group.getFirst(true);
+                this.object1.destroy();
+                this.itemCollision(this.object1);
             }
-            if (this.physics.overlap(this.character, this.sanitizerGroup)) {
-                this.sanitizer = this.sanitizerGroup.getFirst(true);
-                this.sanitizer.destroy();
-                this.itemCollision(this.sanitizer);
+            if (this.physics.overlap(this.character, this.object2Group)) {
+                this.object2 = this.object2Group.getFirst(true);
+                this.object2.destroy();
+                this.itemCollision(this.object2);
             }
         } else if (Phaser.Input.Keyboard.JustDown(keyR)) {
             this.scene.restart(this.level);
@@ -208,10 +206,10 @@ class Play extends Phaser.Scene {
                 }
             }
         }
-        if (level % (5 + this.addSpeed) == 0) { this.addMask(); }
-        if (level % (7 + this.addSpeed) == 0) { this.addSanitizer(); }
-        if (level % (5 - this.levelSpeed) == 0) { this.addVirus1(); }
-        if (level % (4 - this.level2Speed) == 0) { this.addVirus2(); }
+        if (level % (5 + this.addSpeed) == 0) { this.addObject1(); }
+        if (level % (7 + this.addSpeed) == 0) { this.addObject2(); }
+        if (level % (5 - this.levelSpeed) == 0) { this.addCactus(); }
+        if (level % (4 - this.level2Speed) == 0) { this.addObstacle1(); }
     }
 
     itemCollision(item) {
@@ -225,7 +223,7 @@ class Play extends Phaser.Scene {
 
     }
 
-    virusCollision(item) {
+    obstacleCollision(item) {
         if (health - item.hp <= 0) {
             Gameover = true;
             this.sound.play("death_music", { volume: 0.2 });
@@ -241,10 +239,10 @@ class Play extends Phaser.Scene {
     }
 
     GameOver() {
-        this.virus1Group.clear();
-        this.virus2Group.clear();
-        this.maskGroup.clear();
-        this.sanitizerGroup.clear();
+        this.cactusGroup.clear();
+        this.obstacle1Group.clear();
+        this.object1Group.clear();
+        this.object2Group.clear();
         this.HealthText.destroy();
         this.ScoreText.destroy();
         // check for high score in local storage
