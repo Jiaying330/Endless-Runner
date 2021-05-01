@@ -43,12 +43,6 @@ class Play extends Phaser.Scene {
         // set up character
         this.character = this.physics.add.sprite(120, game.config.height - tileSize, 'character').setScale(SCALE).setOrigin(1);
 
-        // set up Phaser-provided cursor key input
-        cursors = this.input.keyboard.createCursorKeys();
-        keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
-        keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
-        keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
-
         // add physics collider
         this.physics.add.collider(this.character, this.ground);
 
@@ -94,8 +88,13 @@ class Play extends Phaser.Scene {
             strokeThickness: 3
         });
 
-        keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
-        keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        // set up Phaser-provided cursor key input
+        cursors = this.input.keyboard.createCursorKeys();
+        keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
+        keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
+        keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     }
 
     //add items
@@ -136,11 +135,11 @@ class Play extends Phaser.Scene {
             }
 
             // Move to the left
-            if (keyLEFT.isDown && this.character.body.x >=  10) {
+            if (keyA.isDown && this.character.body.x >=  10) {
                 this.character.body.x -= 6;
             }
             // Move to the right
-            if (keyRIGHT.isDown && this.character.body.x <= 730) {
+            if (keyD.isDown && this.character.body.x <= 730) {
                 this.character.body.x += 6;
             }
 
