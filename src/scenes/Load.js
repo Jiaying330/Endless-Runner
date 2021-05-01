@@ -9,7 +9,7 @@ class Load extends Phaser.Scene {
         //load background
         this.load.image('background', 'Background.png');
         this.load.image('character', 'player.png');
-        this.load.image('city','cities.jpg');
+        this.load.image('city','cities.png');
         this.load.image('block', 'block.png',{
             frameWideth:25, 
             frameHeight:27
