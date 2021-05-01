@@ -22,7 +22,7 @@ let config = {
 let game = new Phaser.Game(config);
 
 //reserve keyboard variables
-let keySPACE, keyUP, keyDOWN, keyF, keyR, keyQ, keyA, keyD;
+let keySPACE, keyUP, keyDOWN, keyF, keyR, keyQ, keyA, keyD, keyS;
 
 //define Game Settings
 game.settings = {
@@ -45,3 +45,5 @@ let health;
 let highScore;
 let newHighScore = false;
 let Gameover;
+let bullets;
+let input;

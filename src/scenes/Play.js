@@ -1,6 +1,9 @@
 class Play extends Phaser.Scene {
     constructor() {
         super("playScene");
+
+        this.bullets;
+        input = this.input;
     }
 
     create() {
@@ -14,10 +17,11 @@ class Play extends Phaser.Scene {
         this.itemSpeed2 = -480;
         this.itemSpeed3 = -530;
         this.cactusSpeed = -100;
+        this.carSpeed = -300;
         this.obstacle1Speed = -500;
         score = 0;
         level = 0;
-        health = 20;
+        health = 1;
         Gameover = false;
         this.levelup = true;
         this.addSpeed = 0;
@@ -26,7 +30,7 @@ class Play extends Phaser.Scene {
 
         // add tile sprite
         this.background = this.add.tileSprite(0, 3, game.config.width, game.config.height, 'background').setOrigin(0);
-        this.city = this.add.tileSprite(0,0, game.config.width, game.config.height, 'city').setOrigin(0);
+        this.city = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'city').setOrigin(0);
 
         // make ground tiles group
         this.ground = this.add.group();
@@ -42,7 +46,6 @@ class Play extends Phaser.Scene {
 
         // set up character
         this.character = this.physics.add.sprite(120, game.config.height - tileSize, 'character').setScale(SCALE).setOrigin(1);
-
         // add physics collider
         this.physics.add.collider(this.character, this.ground);
 
@@ -67,6 +70,9 @@ class Play extends Phaser.Scene {
             runChildUpdate: true
         });
         this.obstacle1Group = this.add.group({
+            runChildUpdate: true
+        });
+        this.carGroup = this.add.group({
             runChildUpdate: true
         });
 
@@ -95,6 +101,14 @@ class Play extends Phaser.Scene {
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+
+        //Add Weapon
+        this.cannon = this.add.sprite(this.character.x, this.character.y - 30, 'weapon');
+        //cannonball creation according to the cannon
+        this.cannonball = this.physics.add.sprite(1000, 1000, 'weapon');
+        this.mouse = this.input.mousePointer;
+        this.worldBounds = this.physics.world.bounds;
     }
 
     //add items
@@ -115,6 +129,10 @@ class Play extends Phaser.Scene {
         let obstacle1 = new Obstacle1(this, this.obstacle1Speed).setScale(1.1);
         this.obstacle1Group.add(obstacle1);
     }
+    addCar() {
+        let car = new Car(this, this.carSpeed).setScale(1.0);
+        this.carGroup.add(car);
+    }
 
     update() {
         // update tile sprites (tweak for more "speed")
@@ -122,8 +140,32 @@ class Play extends Phaser.Scene {
         this.city.tilePositionX += 1;
         this.groundScroll.tilePositionX += 1;
         this.background.tilePositionX += 3;
+        this.cannon.x = this.character.x;
+        this.cannon.y = this.character.y - 30;
+
         //check game
         if (!Gameover) {
+
+            //angle between mouse and ball
+            let angle = Phaser.Math.Angle.Between(this.cannon.x, this.cannon.y, this.input.x, this.input.y);
+            //rotation cannon
+            this.cannon.setRotation(angle);
+            //mouse clicked
+            if (this.mouse.isDown && this.control == false) {
+                //for fire again
+                this.cannonball = this.physics.add.sprite(this.character.x, this.character.y - 30, 'weapon');
+                //move to mouse position 
+                this.cannonball.body.setAllowGravity(false);
+                // this.cannonball.body.allowGravity = false;
+                this.physics.moveTo(this.cannonball, this.input.x, this.input.y, 800);
+                this.control = true;
+            }
+            //check world bounds
+            if (this.cannonball.x > this.worldBounds.width || this.cannonball.y > this.worldBounds.height || this.cannonball.x < 0 || this.cannonball.y < 0) {
+                this.control = false;
+            }
+
+
             // check if character is grounded
             this.character.isGrounded = this.character.body.touching.down;
             // if so, we have jumps to spare
@@ -135,18 +177,33 @@ class Play extends Phaser.Scene {
             }
 
             // Move to the left
-            if (keyA.isDown && this.character.body.x >=  10) {
+            if (keyA.isDown && this.character.body.x >= 10) {
                 this.character.body.x -= 6;
             }
             // Move to the right
             if (keyD.isDown && this.character.body.x <= 730) {
                 this.character.body.x += 6;
             }
+            // Character Crouching 
+            if (this.character.body.touching.down) {
+                if (keyS.isDown) {
+
+                    this.character.setY(game.config.height - tileSize);
+
+                    this.character.setTexture('crouch_character');
+                    // console.log("Here");
+
+                    this.character.setCollideWorldBounds(true);
+                }
+            }
+            if (!keyS.isDown) {
+                this.character.setTexture('character');
+            }
 
             // allow steady velocity change up to a certain key down duration
             if (this.jumps > 0 && Phaser.Input.Keyboard.DownDuration(cursors.space, 40)) {
                 this.character.body.x = this.character.body.x;
-                this.character.body.velocity.y = this.JUMP_VELOCITY*1.2;
+                this.character.body.velocity.y = this.JUMP_VELOCITY * 1.2;
                 this.jumping = true;
                 this.sound.play('jump_music', { volume: 0.2, rate: 0.4 });
             }
@@ -170,6 +227,12 @@ class Play extends Phaser.Scene {
                 this.obstacle1.destroy();
                 this.obstacleCollision(this.obstacle1);
                 console.log("readd obstacle1");
+            }
+            if (this.physics.overlap(this.character, this.carGroup)) {
+                this.car = this.carGroup.getFirst(true);
+                this.car.destroy();
+                this.obstacleCollision(this.car);
+                console.log("readd car");
             }
             if (this.physics.overlap(this.character, this.object1Group)) {
                 this.object1 = this.object1Group.getFirst(true);
@@ -207,8 +270,9 @@ class Play extends Phaser.Scene {
         }
         if (level % (5 + this.addSpeed) == 0) { this.addObject1(); }
         if (level % (7 + this.addSpeed) == 0) { this.addObject2(); }
-        if (level % (5 - this.levelSpeed) == 0) { this.addCactus(); }
-        if (level % (4 - this.level2Speed) == 0) { this.addObstacle1(); }
+        // if (level % (5 - this.levelSpeed) == 0) { this.addCactus(); }
+        if (level % (5 - this.levelSpeed) == 0) { this.addCar(); }
+        // if (level % (4 - this.level2Speed) == 0) { this.addObstacle1(); }
     }
 
     itemCollision(item) {
@@ -240,10 +304,12 @@ class Play extends Phaser.Scene {
     GameOver() {
         this.cactusGroup.clear();
         this.obstacle1Group.clear();
+        this.carGroup.clear();
         this.object1Group.clear();
         this.object2Group.clear();
         this.HealthText.destroy();
         this.ScoreText.destroy();
+        this.cannon.destroy();
         // check for high score in local storage
         if (localStorage.getItem('highScore') != null) {
             let storedScore = parseInt(localStorage.getItem('highScore'));

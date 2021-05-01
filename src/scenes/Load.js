@@ -9,6 +9,7 @@ class Load extends Phaser.Scene {
         //load background
         this.load.image('background', 'Background.png');
         this.load.image('character', 'player.png');
+        this.load.image('crouch_character', 'LieDown_Slug.png')
         this.load.image('city','cities.png');
         this.load.image('block', 'block.png',{
             frameWideth:25, 
@@ -20,16 +21,14 @@ class Load extends Phaser.Scene {
             { key: 'Object2' },
             { key: 'Cactus' },
             { key: 'Obstacle1' },
+            { key: 'Car' },
+            { key: 'weapon' },
         ]);
 
         //load sounds
         this.load.path = './assets/audio/';
-        this.load.audio('bgm', ['bgm2.mp3']);
-        this.load.audio('background_music', 'endless runner.wav');
         this.load.audio('jump_music', 'jump1.wav');
         this.load.audio('death_music', 'dead1.wav');
-        this.load.audio('kill_music', ['kill.mp3']);
-        this.load.audio('spray_music', 'shoot2.wav');
         this.load.audio('pickup_music', 'Pickup.wav');
         this.load.audio('hit_music', 'hit.wav');
         
