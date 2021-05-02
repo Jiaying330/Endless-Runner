@@ -2,8 +2,10 @@ class Play extends Phaser.Scene {
     constructor() {
         super("playScene");
 
+        // the weapons variable
         this.bullets;
         input = this.input;
+        this.cactusHealth = 0;
     }
 
     create() {
@@ -129,9 +131,23 @@ class Play extends Phaser.Scene {
         let obstacle1 = new Obstacle1(this, this.obstacle1Speed).setScale(1.1);
         this.obstacle1Group.add(obstacle1);
     }
+
     addCar() {
         let car = new Car(this, this.carSpeed).setScale(1.0);
+
+        this.car_tire1 = this.physics.add.sprite(car.body.x - 237, car.body.y + 145, 'carTire');
+        this.car_tire1.body.alpha = 0.20;
+        this.car_tire1.body.setAllowGravity(false);
+        this.car_tire1.body.setVelocityX(this.carSpeed);
+        this.car_tire1.body.setImmovable(true);
+
+        this.car_tire2 = this.physics.add.sprite(car.body.x + 230, car.body.y + 145, 'carTire');
+        this.car_tire2.body.setAllowGravity(false);
+        this.car_tire2.body.setVelocityX(this.carSpeed);
+        this.car_tire2.body.setImmovable(true);
+
         this.carGroup.add(car);
+
     }
 
     update() {
@@ -163,6 +179,37 @@ class Play extends Phaser.Scene {
             //check world bounds
             if (this.cannonball.x > this.worldBounds.width || this.cannonball.y > this.worldBounds.height || this.cannonball.x < 0 || this.cannonball.y < 0) {
                 this.control = false;
+            }
+            if (this.physics.overlap(this.cannonball, this.cactusGroup)) {
+                this.cactus1 = this.cactusGroup.getFirst(true);
+                this.cactusHealth++;
+                if (this.cactusHealth >= 2) {
+                    this.cactus1.destroy();
+                }
+                this.cannonball.destroy();
+                this.control = false;
+
+            }
+            if (this.physics.overlap(this.cannonball, this.obstacle1Group)) {
+                this.obstacle1 = this.obstacle1Group.getFirst(true);
+                this.obstacle1.destroy();
+                this.cannonball.destroy();
+                this.control = false;
+
+            }
+            if (this.physics.overlap(this.cannonball, this.object1Group)) {
+                this.object1 = this.object1Group.getFirst(true);
+                this.object1.destroy();
+                this.cannonball.destroy();
+                this.control = false;
+                this.itemCollision(this.object1);
+            }
+            if (this.physics.overlap(this.cannonball, this.object2Group)) {
+                this.object2 = this.object2Group.getFirst(true);
+                this.object2.destroy();
+                this.cannonball.destroy();
+                this.control = false;
+                this.itemCollision(this.object2);
             }
 
 
@@ -214,25 +261,28 @@ class Play extends Phaser.Scene {
                 this.jumping = false;
             }
         }
+
         //if not death,
         if (health > 0) {
             if (this.physics.overlap(this.character, this.cactusGroup)) {
                 this.cactus1 = this.cactusGroup.getFirst(true);
                 this.cactus1.destroy();
                 this.obstacleCollision(this.cactus1);
-                console.log("readd cactus");
+                console.log("hit cactus");
             }
             if (this.physics.overlap(this.character, this.obstacle1Group)) {
                 this.obstacle1 = this.obstacle1Group.getFirst(true);
                 this.obstacle1.destroy();
                 this.obstacleCollision(this.obstacle1);
-                console.log("readd obstacle1");
+                console.log("hit obstacle1");
             }
             if (this.physics.overlap(this.character, this.carGroup)) {
                 this.car = this.carGroup.getFirst(true);
                 this.car.destroy();
+                this.car_tire1.destroy();
+                this.car_tire2.destroy();
                 this.obstacleCollision(this.car);
-                console.log("readd car");
+                console.log("hit car");
             }
             if (this.physics.overlap(this.character, this.object1Group)) {
                 this.object1 = this.object1Group.getFirst(true);
@@ -251,6 +301,7 @@ class Play extends Phaser.Scene {
         }
     }
 
+    // Where to set up the game difficulties 
     levelBump() {
         level++;
         //make game start easy to hard
@@ -270,11 +321,12 @@ class Play extends Phaser.Scene {
         }
         if (level % (5 + this.addSpeed) == 0) { this.addObject1(); }
         if (level % (7 + this.addSpeed) == 0) { this.addObject2(); }
-        // if (level % (5 - this.levelSpeed) == 0) { this.addCactus(); }
+        if (level % (5 - this.levelSpeed) == 0) { this.addCactus(); }
         if (level % (5 - this.levelSpeed) == 0) { this.addCar(); }
-        // if (level % (4 - this.level2Speed) == 0) { this.addObstacle1(); }
+        if (level % (4 - this.level2Speed) == 0) { this.addObstacle1(); }
     }
 
+    // Dealling the collision with items
     itemCollision(item) {
         this.sound.play("pickup_music", { volume: 0.2 });
         score += item.score;
@@ -286,6 +338,7 @@ class Play extends Phaser.Scene {
 
     }
 
+    // Dealling the collision with obstacles
     obstacleCollision(item) {
         if (health - item.hp <= 0) {
             Gameover = true;
@@ -301,6 +354,7 @@ class Play extends Phaser.Scene {
 
     }
 
+    // When the game is over
     GameOver() {
         this.cactusGroup.clear();
         this.obstacle1Group.clear();

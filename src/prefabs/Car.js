@@ -2,14 +2,14 @@
 class Car extends Phaser.Physics.Arcade.Sprite{
     constructor(scene, velocity) {
         // call Phaser Physics Sprite constructor
-        super(scene, game.config.width+Phaser.Math.Between(game.config.width, game.config.width*2), game.config.height-tileSize-230, 'Car'); 
+        super(scene, game.config.width, game.config.height-tileSize-230, 'Car'); 
         // set up physics sprite
         scene.add.existing(this);               // add to existing scene, displayList, updateList
         scene.physics.add.existing(this);       // add physics body
         this.setVelocityX(velocity);            // make it go!
-        this.setImmovable(true);                    
+        this.setImmovable(true);
         this.score = 20;
-        this.hp = 2;
+        this.hp = 10;
         this.body.setAllowGravity(false);
     }
 
