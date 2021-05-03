@@ -81,6 +81,9 @@ class Play extends Phaser.Scene {
         this.carGroup = this.add.group({
             runChildUpdate: true
         });
+        this.footGroup = this.add.group({
+            runChildUpdate: true
+        });
 
         //ADD text
         this.HealthText = this.add.text(10, 10, `Health: ${health}`, {
@@ -139,10 +142,14 @@ class Play extends Phaser.Scene {
         let crow = new Crow(this, this.itemSpeed1).setScale(1.5);
         this.crowGroup.add(crow);
     }
-
     addCar() {
         let car = new Car(this, this.carSpeed).setScale(1.0);
         this.carGroup.add(car);
+    }
+    addFoot() {
+        let foot = new Foot(this, -2600).setScale(1.0);
+        this.physics.add.collider(foot, this.ground);
+        this.footGroup.add(foot);
     }
 
     update() {
@@ -190,7 +197,6 @@ class Play extends Phaser.Scene {
                 this.obstacle1.destroy();
                 this.cannonball.destroy();
                 this.control = false;
-
             }
             if (this.physics.overlap(this.cannonball, this.object1Group)) {
                 this.object1 = this.object1Group.getFirst(true);
@@ -299,6 +305,11 @@ class Play extends Phaser.Scene {
                 this.crow.destroy();
                 this.obstacleCollision(this.crow);
             }
+            if (this.physics.overlap(this.character, this.footGroup)) {
+                this.foot = this.footGroup.getFirst(true);
+                this.foot.destroy();
+                this.obstacleCollision(this.foot);
+            }
         } else if (Phaser.Input.Keyboard.JustDown(keyR)) {
             this.scene.restart(this.level);
         } else if (Phaser.Input.Keyboard.JustDown(keyQ)) {
@@ -324,12 +335,16 @@ class Play extends Phaser.Scene {
                 }
             }
         }
-        if (level % (5 + this.addSpeed) == 0) { this.addObject1(); }
-        if (level % (7 + this.addSpeed) == 0) { this.addObject2(); }
-        if (level % (7 + this.addSpeed) == 0) { this.addCrow(); }
-        if (level % (5 - this.levelSpeed) == 0) { this.addCactus(); }
-        if (level % (5 - this.levelSpeed) == 0) { this.addCar(); }
-        if (level % (4 - this.level2Speed) == 0) { this.addObstacle1(); }
+        // if (level % (5 + this.addSpeed) == 0) { this.addObject1(); }
+        // if (level % (7 + this.addSpeed) == 0) { this.addObject2(); }
+        // if (level % (7 + this.addSpeed) == 0) { this.addCrow(); }
+        // if (level % (5 - this.levelSpeed) == 0) { this.addCactus(); }
+        // if (level % (5 - this.levelSpeed) == 0) { this.addCar(); }
+        if (level % (5 - this.levelSpeed) == 0) {
+            console.log("Add foot");
+            this.addFoot();
+        }
+        // if (level % (4 - this.level2Speed) == 0) { this.addObstacle1(); }
     }
 
     // Dealling the collision with items
@@ -371,7 +386,7 @@ class Play extends Phaser.Scene {
         this.HealthText.destroy();
         this.ScoreText.destroy();
         this.cannon.destroy();
-        // this.crow.destroy();
+
         // check for high score in local storage
         if (localStorage.getItem('highScore') != null) {
             let storedScore = parseInt(localStorage.getItem('highScore'));
