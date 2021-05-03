@@ -16,7 +16,7 @@ let config = {
             }
         }
     },
-    scene: [Load, Menu, Play ]
+    scene: [Load, Menu, Play]
 };
 
 let game = new Phaser.Game(config);
@@ -36,8 +36,8 @@ let currentScene = 0;
 const SCALE = 1;
 const tileSize = 27;
 let playMusic;
-let centerX = game.config.width/2;
-let centerY = game.config.height/2;
+let centerX = game.config.width / 2;
+let centerY = game.config.height / 2;
 const textSpacer = 50;
 let level;
 let score;

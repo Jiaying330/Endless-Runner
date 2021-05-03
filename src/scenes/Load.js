@@ -10,10 +10,10 @@ class Load extends Phaser.Scene {
         this.load.image('background', 'Background.png');
         this.load.image('character', 'player.png');
         this.load.image('crouch_character', 'LieDown_Slug.png')
-        this.load.image('city','cities.png');
-        this.load.image('block', 'block.png',{
-            frameWideth:25, 
-            frameHeight:27
+        this.load.image('city', 'cities.png');
+        this.load.image('block', 'block.png', {
+            frameWideth: 25,
+            frameHeight: 27
         });
         this.load.image([
             { key: 'ground' },
@@ -24,7 +24,7 @@ class Load extends Phaser.Scene {
             { key: 'Car' },
             { key: 'weapon' },
             { key: 'crow' },
-            
+
         ]);
 
         //load sounds
@@ -33,14 +33,14 @@ class Load extends Phaser.Scene {
         this.load.audio('death_music', 'dead1.wav');
         this.load.audio('pickup_music', 'Pickup.wav');
         this.load.audio('hit_music', 'hit.wav');
-        
+
     }
-    
+
     create() {
         playMusic = true;
         // nathan's code
-        
-        if(window.localStorage) {
+
+        if (window.localStorage) {
             console.log('Local storage supported');
         } else {
             console.log('Local storage not supported');
