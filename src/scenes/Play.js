@@ -147,8 +147,14 @@ class Play extends Phaser.Scene {
         this.carGroup.add(car);
     }
     addFoot() {
-        let foot = new Foot(this, -2600).setScale(1.0);
+        let foot = new Foot(this, 0).setScale(1.0);
         this.physics.add.collider(foot, this.ground);
+        this.time.delayedCall(4000, () =>{
+            if (typeof foot.body === 'undefined') {
+            }else{
+                foot.body.setVelocityY(-2600);
+            }
+        }, null, this);
         this.footGroup.add(foot);
     }
 

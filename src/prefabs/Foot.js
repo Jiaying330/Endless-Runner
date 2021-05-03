@@ -6,26 +6,20 @@ class Foot extends Phaser.Physics.Arcade.Sprite {
         // set up physics sprite
         scene.add.existing(this);               // add to existing scene, displayList, updateList
         scene.physics.add.existing(this);       // add physics body
-        // this.setVelocityX(velocity);            // make it go!
-        this.clock = scene.time.delayedCall(4000, () =>{
-            this.setVelocityY(velocity);
-        }, null, this);
-
-        // this.clock = scene.time.delayedCall(10000, () =>{
-        //     console.log("destoried");
-        //     this.destroy();
+        this.setVelocityX(velocity);            // make it go!
+        // this.clock = scene.time.delayedCall(4000, () =>{
+        //     this.setVelocityY(velocity);
         // }, null, this);
 
         this.score = 5;
         this.hp = 2;
-        
-        // Phaser.Math.Between(0, game.config.width)
     }
 
     update() {
         // override physics sprite update()
         super.update();
-        if (this.x < -this.width) {
+        if (this.y < game.config.height-820){
+            console.log("destoried")
             this.destroy();
         }
     }
