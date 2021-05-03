@@ -224,7 +224,7 @@ class Play extends Phaser.Scene {
                 this.crow.destroy();
                 this.cannonball.destroy();
                 this.control = false;
-                this.itemCollision(this.crow);
+                this.obstacleCollision(this.crow);
             }
 
 
@@ -343,7 +343,7 @@ class Play extends Phaser.Scene {
         if (level % (7 + this.addSpeed) == 0) { this.addObject2(); }
         if (level % (7 + this.addSpeed) == 0) { this.addCrow(); }
         if (level % (5 - this.levelSpeed) == 0) { this.addCactus(); }
-        if (level % (5 - this.levelSpeed) == 0) { this.addCar(); }
+        // if (level % (5 - this.levelSpeed) == 0) { this.addCar(); }
         if (level % (4 - this.level2Speed) == 0) { this.addObstacle1(); }
     }
 
@@ -386,7 +386,7 @@ class Play extends Phaser.Scene {
         this.HealthText.destroy();
         this.ScoreText.destroy();
         this.cannon.destroy();
-        this.crow.destroy();
+        // this.crow.destroy();
         // check for high score in local storage
         if (localStorage.getItem('highScore') != null) {
             let storedScore = parseInt(localStorage.getItem('highScore'));
