@@ -24,6 +24,8 @@ class Load extends Phaser.Scene {
             { key: 'Car' },
             { key: 'weapon' },
             { key: 'carTire' },
+            { key: 'crow' },
+            
         ]);
 
         //load sounds
