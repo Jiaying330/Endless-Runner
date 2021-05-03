@@ -5,7 +5,7 @@ class Play extends Phaser.Scene {
         // the weapons variable
         this.bullets;
         input = this.input;
-        this.cactusHealth = 0;
+        this.cactusHealth = 0;
     }
 
     create() {
@@ -21,10 +21,10 @@ class Play extends Phaser.Scene {
         this.cactusSpeed = -100;
         this.carSpeed = -300;
         this.obstacle1Speed = -500;
-        
+
         score = 0;
         level = 0;
-        health = 1;
+        health = 1000;
         Gameover = false;
         this.levelup = true;
         this.addSpeed = 0;
@@ -142,20 +142,7 @@ class Play extends Phaser.Scene {
 
     addCar() {
         let car = new Car(this, this.carSpeed).setScale(1.0);
-
-        this.car_tire1 = this.physics.add.sprite(car.body.x - 237, car.body.y + 145, 'carTire');
-        this.car_tire1.body.alpha = 0.20;
-        this.car_tire1.body.setAllowGravity(false);
-        this.car_tire1.body.setVelocityX(this.carSpeed);
-        this.car_tire1.body.setImmovable(true);
-
-        this.car_tire2 = this.physics.add.sprite(car.body.x + 230, car.body.y + 145, 'carTire');
-        this.car_tire2.body.setAllowGravity(false);
-        this.car_tire2.body.setVelocityX(this.carSpeed);
-        this.car_tire2.body.setImmovable(true);
-
         this.carGroup.add(car);
-
     }
 
     update() {
@@ -294,8 +281,6 @@ class Play extends Phaser.Scene {
             if (this.physics.overlap(this.character, this.carGroup)) {
                 this.car = this.carGroup.getFirst(true);
                 this.car.destroy();
-                this.car_tire1.destroy();
-                this.car_tire2.destroy();
                 this.obstacleCollision(this.car);
                 console.log("hit car");
             }
@@ -343,7 +328,7 @@ class Play extends Phaser.Scene {
         if (level % (7 + this.addSpeed) == 0) { this.addObject2(); }
         if (level % (7 + this.addSpeed) == 0) { this.addCrow(); }
         if (level % (5 - this.levelSpeed) == 0) { this.addCactus(); }
-        // if (level % (5 - this.levelSpeed) == 0) { this.addCar(); }
+        if (level % (5 - this.levelSpeed) == 0) { this.addCar(); }
         if (level % (4 - this.level2Speed) == 0) { this.addObstacle1(); }
     }
 
