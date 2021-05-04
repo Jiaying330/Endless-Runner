@@ -28,10 +28,15 @@ class Menu extends Phaser.Scene {
 
         // Get the key
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+        keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+
 
         this.add.text(centerX, centerY - textSpacer, 'EndlessRunner(Demo)', menuConfig).setOrigin(0.5);
         let menu1Config = { fontFamily: 'Courier', fontSize: '32px', color: '#000000', stroke: '#FFFFFF', strokeThickness: 3, padding: { top: 5, bottom: 5, }, fixedWidth: 0 }
         this.add.text(centerX, centerY + textSpacer, 'Press (SPACE) to Start', menu1Config).setOrigin(0.5);
+        this.add.text(centerX, centerY + textSpacer*2, 'Press (W) for Instruction', menu1Config).setOrigin(0.5);
+        this.add.text(centerX, centerY + textSpacer*3, 'Press (S) for Credit', menu1Config).setOrigin(0.5);
     }
 
     update() {
@@ -40,6 +45,14 @@ class Menu extends Phaser.Scene {
 
         if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
             this.scene.start("playScene");
+        }
+        if(Phaser.Input.Keyboard.JustDown(keyW)){
+            // playMusic = false;
+            this.scene.start("instruScene");
+        }
+        if(Phaser.Input.Keyboard.JustDown(keyS)){
+            // playMusic = false;
+            this.scene.start("creditScene");
         }
 
     }

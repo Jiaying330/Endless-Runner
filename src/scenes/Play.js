@@ -12,13 +12,13 @@ class Play extends Phaser.Scene {
         this.anims.create({
             key: 'run',
             frames: this.anims.generateFrameNumbers('fox', {
-              start: 0,
-              end: 5,
-              first: 0
+                start: 0,
+                end: 5,
+                first: 0
             }),
             frameRate: 5,
             repeat: -1
-          });
+        });
         // variables and settings
         this.JUMP_VELOCITY = -700;
         this.MAX_JUMPS = 2;
@@ -29,12 +29,12 @@ class Play extends Phaser.Scene {
         this.itemSpeed2 = -480;
         this.itemSpeed3 = -530;
         this.cactusSpeed = -100;
-        this.carSpeed = -300;
+        this.carSpeed = -700;
         this.obstacle1Speed = -500;
-
         score = 0;
         level = 0;
-        health = 1000;
+        count = 0;
+        health = 1;
         Gameover = false;
         this.levelup = true;
         this.addSpeed = 0;
@@ -43,7 +43,7 @@ class Play extends Phaser.Scene {
 
         // add tile sprite
         this.background = this.add.tileSprite(0, 3, game.config.width, game.config.height, 'background').setOrigin(0);
-        this.city = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'city').setOrigin(0);
+        this.city = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'forest').setOrigin(0);
 
         // make ground tiles group
         this.ground = this.add.group();
@@ -125,7 +125,7 @@ class Play extends Phaser.Scene {
         //Add Weapon
         this.cannon = this.add.sprite(this.character.x, this.character.y - 30, 'weapon');
         //cannonball creation according to the cannon
-        this.cannonball = this.physics.add.sprite(1000, 1000, 'weapon');
+        this.cannonball = this.physics.add.sprite(1000, 1000, 'bullet');
         this.mouse = this.input.mousePointer;
         this.worldBounds = this.physics.world.bounds;
     }
@@ -159,11 +159,12 @@ class Play extends Phaser.Scene {
     }
     addFoot() {
         let foot = new Foot(this, 0).setScale(1.0);
+        foot.body.setGravityY(-2300);
         this.physics.add.collider(foot, this.ground);
-        this.time.delayedCall(4000, () =>{
+        this.time.delayedCall(3000, () => {
             if (typeof foot.body === 'undefined') {
-            }else{
-                foot.body.setVelocityY(-2600);
+            } else {
+                foot.body.setVelocityY(-700);
             }
         }, null, this);
         this.footGroup.add(foot);
@@ -188,7 +189,7 @@ class Play extends Phaser.Scene {
             //mouse clicked
             if (this.mouse.isDown && this.control == false) {
                 //for fire again
-                this.cannonball = this.physics.add.sprite(this.character.x, this.character.y - 30, 'weapon');
+                this.cannonball = this.physics.add.sprite(this.character.x, this.character.y - 30, 'bullet');
                 //move to mouse position 
                 this.cannonball.body.setAllowGravity(false);
                 // this.cannonball.body.allowGravity = false;
@@ -260,10 +261,9 @@ class Play extends Phaser.Scene {
             if (this.character.body.touching.down) {
                 if (keyS.isDown) {
 
-                    this.character.setY(game.config.height - tileSize);
-
                     this.character.setTexture('crouch_character');
-                    // console.log("Here");
+
+                    this.character.setY(game.config.height - tileSize);
 
                     this.character.setCollideWorldBounds(true);
                 }
@@ -341,6 +341,14 @@ class Play extends Phaser.Scene {
         if (level % 60 == 0) {
             this.addSpeed = 0;
             this.levelSpeed = 0;
+            if (count % 2 == 0) {
+                this.groundScroll.setTexture('road_land');
+            }
+            if (count % 2 == 1) {
+                this.city.setTexture('forest');
+                this.groundScroll.setTexture('ground');
+            }
+            count++;
         } else {
             if (level % 10 == 0) {
                 this.addSpeed++;
@@ -356,12 +364,11 @@ class Play extends Phaser.Scene {
         if (level % (7 + this.addSpeed) == 0) { this.addObject2(); }
         if (level % (7 + this.addSpeed) == 0) { this.addCrow(); }
         if (level % (5 - this.levelSpeed) == 0) { this.addCactus(); }
-        // if (level % (5 - this.levelSpeed) == 0) { this.addCar(); }
+        if (level % (5 - this.levelSpeed) == 0) { this.addCar(); }
         // if (level % (5 - this.levelSpeed) == 0) {
-        //     console.log("Add foot");
         //     this.addFoot();
         // }
-        if (level % (4 - this.level2Speed) == 0) { this.addObstacle1(); }
+        // if (level % (4 - this.level2Speed) == 0) { this.addObstacle1(); }
     }
 
     // Dealling the collision with items

@@ -6,7 +6,7 @@ class Foot extends Phaser.Physics.Arcade.Sprite {
         // set up physics sprite
         scene.add.existing(this);               // add to existing scene, displayList, updateList
         scene.physics.add.existing(this);       // add physics body
-        this.setVelocityX(velocity);            // make it go!
+        this.setVelocityY(velocity);            // make it go!
         // this.clock = scene.time.delayedCall(4000, () =>{
         //     this.setVelocityY(velocity);
         // }, null, this);

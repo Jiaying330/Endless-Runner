@@ -16,13 +16,13 @@ let config = {
             }
         }
     },
-    scene: [Load, Menu, Play]
+    scene: [Load, Menu, Play, Credits, Instru]
 };
 
 let game = new Phaser.Game(config);
 
 //reserve keyboard variables
-let keySPACE, keyUP, keyDOWN, keyF, keyR, keyQ, keyA, keyD, keyS;
+let keySPACE, keyUP, keyDOWN, keyF, keyR, keyQ, keyA, keyD, keyS, keyW;
 
 //define Game Settings
 game.settings = {
@@ -41,6 +41,7 @@ let centerY = game.config.height / 2;
 const textSpacer = 50;
 let level;
 let score;
+let count;
 let health;
 let highScore;
 let newHighScore = false;

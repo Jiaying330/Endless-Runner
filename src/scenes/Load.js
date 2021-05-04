@@ -9,8 +9,7 @@ class Load extends Phaser.Scene {
         //load background
         this.load.image('background', 'Background.png');
         this.load.image('character', 'player.png');
-        this.load.image('crouch_character', 'LieDown_Slug.png')
-        this.load.image('city', 'cities.png');
+        this.load.image('forest', 'forest.png');
         this.load.image('block', 'block.png', {
             frameWideth: 25,
             frameHeight: 27
@@ -21,14 +20,18 @@ class Load extends Phaser.Scene {
             { key: 'object1' },
             { key: 'Object2' },
             { key: 'Cactus' },
-            // { key: 'Obstacle1' },
+            { key: 'Obstacle1' },
             { key: 'Car' },
             { key: 'weapon' },
             { key: 'crow' },
             { key: 'Foot' },
+            { key: 'bullet' },
+            { key: 'city' },
+            { key: 'crouch_character' },
+            { key: 'road_land' },
         ]);
         this.load.spritesheet('fox', 'fox.jpg', {
-            frameWidth: 196,
+            frameWidth: 195,
             frameHeight: 114,
             starFrame: 0,
             endFrame: 5
