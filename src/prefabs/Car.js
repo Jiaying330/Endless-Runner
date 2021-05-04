@@ -10,7 +10,7 @@ class Car extends Phaser.Physics.Arcade.Sprite {
         this.setImmovable(true);
         this.setSize(0, this.y + 50, false)
         this.score = 20;
-        this.hp = 10;
+        this.hp = 3;
         this.body.setAllowGravity(false);
     }
 

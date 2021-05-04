@@ -9,7 +9,7 @@ class Crow extends Phaser.Physics.Arcade.Sprite {
         this.setVelocityX(velocity);            // make it go!
         this.setImmovable(true);
         this.score = 20;
-        this.hp = 0;
+        this.hp = -1;
         this.body.setAllowGravity(false);
     }
 

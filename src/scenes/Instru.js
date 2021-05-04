@@ -35,19 +35,9 @@ class Instru extends Phaser.Scene{
             fixedWidth: 0,
         }
         //add instructions
-        this.add.text(centerX, 40, 'Instruction', {color: '#000000', fontSize: '32px', strokeThickness: 5}).setOrigin(0.5);
-        // this.add.image(centerX/4, 90, 'mask').setScale(1.5).setOrigin(0.5);
-        // this.add.text(centerX - 80, 90, 'Mask will +1 hp & +5 points', instruConfig).setOrigin(0.5);
-        // this.add.image(centerX/4, 140, 'alcohol').setScale(1.5).setOrigin(0.5);
-        // this.add.text(centerX+60, 140, 'Collect Alcohol to kill Virus & +1 points, MAX: 5', instruConfig).setOrigin(0.5);
-        // this.add.image(centerX/4, 190, 'sanitizer').setScale(1.5).setOrigin(0.5);
-        // this.add.text(centerX- 50, 190, 'Sanitizer will +1 hp & +5 points', instruConfig).setOrigin(0.5);
-        // this.add.image(centerX/4, 240, 'virus2').setScale(1.5).setOrigin(0.5);
-        // this.add.text(centerX+15, 240, 'Virus-A will -2 hp OR +5 points if killed ', instruConfig).setOrigin(0.5);
-        // this.add.image(centerX/4, 300, 'virus1').setScale(1.5).setOrigin(0.5);
-        // this.add.text(centerX+15, 300, 'Virus-B will -4 hp OR +10 points if killed', instruConfig).setOrigin(0.5);
-        this.add.text(centerX, 360, '(A) & (D) to move, (S) to crouch, (Space) to Jump', credit2Config).setOrigin(0.5);
-        this.add.text(centerX, 390, 'Mouse to aim (Left Button) to shoot', credit2Config).setOrigin(0.5);
+        this.add.text(centerX, centerY-60, 'Instruction', {color: '#000000', fontSize: '32px', strokeThickness: 5}).setOrigin(0.5);
+        this.add.text(centerX, centerY, '(A) & (D) to move, (S) to crouch, (Space) to Jump', credit2Config).setOrigin(0.5);
+        this.add.text(centerX, centerY+40, 'Mouse to aim (Left Button) to shoot', credit2Config).setOrigin(0.5);
         
         //type space to play
         this.add.text(centerX, 420, '[ Press (SPACE) to Return ]', creditConfig).setOrigin(0.5);

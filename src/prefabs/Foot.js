@@ -12,7 +12,7 @@ class Foot extends Phaser.Physics.Arcade.Sprite {
         // }, null, this);
 
         this.score = 5;
-        this.hp = 2;
+        this.hp = 1;
     }
 
     update() {

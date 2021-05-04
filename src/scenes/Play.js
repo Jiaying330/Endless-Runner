@@ -34,7 +34,7 @@ class Play extends Phaser.Scene {
         score = 0;
         level = 0;
         count = 0;
-        health = 1;
+        health = 5;
         Gameover = false;
         this.levelup = true;
         this.addSpeed = 0;
@@ -146,7 +146,7 @@ class Play extends Phaser.Scene {
     }
     addObstacle1() {
         let obstacle1 = new Obstacle1(this, this.obstacle1Speed).setScale(1.1);
-        obstacle1.anims.play('run');
+        // obstacle1.anims.play('run');
         this.obstacle1Group.add(obstacle1);
     }
     addCrow() {
@@ -156,7 +156,7 @@ class Play extends Phaser.Scene {
     addCar() {
         let car = new Car(this, this.carSpeed).setScale(1.0);
         this.carGroup.add(car);
-        this.sound.play("car_music", { volume: 3.0 });
+        this.sound.play("car_music", { volume: 4.0 });
     }
     addFoot() {
         let foot = new Foot(this, 0).setScale(1.0);
@@ -213,14 +213,14 @@ class Play extends Phaser.Scene {
                 }
                 this.cannonball.destroy();
                 this.control = false;
-                this.sound.play("hit_music2", { volume: 3.0 });
+                this.sound.play("hit_music", { volume: 3.0 });
             }
             if (this.physics.overlap(this.cannonball, this.obstacle1Group)) {
                 this.obstacle1 = this.obstacle1Group.getFirst(true);
                 this.obstacle1.destroy();
                 this.cannonball.destroy();
                 this.control = false;
-                this.sound.play("hit_music2", { volume: 3.0 });
+                this.sound.play("hit_music", { volume: 3.0 });
             }
             if (this.physics.overlap(this.cannonball, this.object1Group)) {
                 this.object1 = this.object1Group.getFirst(true);
@@ -241,7 +241,7 @@ class Play extends Phaser.Scene {
                 this.crow.destroy();
                 this.cannonball.destroy();
                 this.control = false;
-                this.obstacleCollision(this.crow);
+                this.sound.play("hit_music", { volume: 3.0 });
             }
 
 
@@ -283,7 +283,7 @@ class Play extends Phaser.Scene {
                 this.character.body.x = this.character.body.x;
                 this.character.body.velocity.y = this.JUMP_VELOCITY * 1.2;
                 this.jumping = true;
-                this.sound.play('jump_music', { volume: 1.0, rate: 0.4 });
+                this.sound.play('jump_music', { volume: 3.0, rate: 0.4 });
             }
             // finally, letting go of the UP key subtracts a jump
             if (this.jumping && Phaser.Input.Keyboard.UpDuration(cursors.space)) {
@@ -344,7 +344,7 @@ class Play extends Phaser.Scene {
     levelBump() {
         level++;
         //make game start easy to hard
-        if (level % 6 == 0) {
+        if (level % 45 == 0) {
             this.addSpeed = 0;
             this.levelSpeed = 0;
             if (count % 2 == 0) {
@@ -375,7 +375,7 @@ class Play extends Phaser.Scene {
         if (level % (5 - this.levelSpeed) == 0) {
             this.addFoot();
         }
-        // if (level % (4 - this.level2Speed) == 0) { this.addObstacle1(); }
+        if (level % (4 - this.level2Speed) == 0) { this.addObstacle1(); }
     }
 
     // Dealling the collision with items
