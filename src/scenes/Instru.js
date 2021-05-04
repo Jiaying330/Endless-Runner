@@ -10,14 +10,14 @@ class Instru extends Phaser.Scene{
         //UI and text
         let instruConfig = {
             color: '#000000',
-            fontFamily: 'Courier',
+            fontFamily: 'Pangolin',
             fontSize: '22px',
             align: 'left',
             fixedWidth: 0,
         }
         let creditConfig = {
             color: '#CD00CD',
-            fontFamily: 'Courier',
+            fontFamily: 'Pangolin',
             fontSize: '22px',
             stroke: '#FFFFFF', 
             strokeThickness: 3,
@@ -27,7 +27,7 @@ class Instru extends Phaser.Scene{
 
         let credit2Config = {
             color: '#000000',
-            fontFamily: 'Courier',
+            fontFamily: 'Pangolin',
             fontSize: '24px',
             stroke: '#FFFFFF', 
             strokeThickness: 3,
@@ -59,6 +59,7 @@ class Instru extends Phaser.Scene{
         this.background.tilePositionX += 1;
 
         if(Phaser.Input.Keyboard.JustDown(keySPACE)){
+            this.sound.play("select_music", { volume: 2.0 });
             this.scene.start("menuScene");
         }
     }

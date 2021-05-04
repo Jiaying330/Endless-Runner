@@ -20,15 +20,9 @@ class Credits extends Phaser.Scene{
             color: '#000000',
             align: 'right',
         }
-        let text2Config = {
-            fontFamily: 'Courier',
-            fontSize: '22px',
-            color: '#000000',
-            align: 'right',
-        }
         let creditConfig = {
             color: '#CD00CD',
-            fontFamily: 'Courier',
+            fontFamily: 'Pangolin',
             fontSize: '22px',
             stroke: '#FFFFFF', 
             strokeThickness: 3,
@@ -38,23 +32,23 @@ class Credits extends Phaser.Scene{
 
         
         //add credits
-        this.add.text(centerX-280, centerY-220, 'Game Designer:', titleConfig).setOrigin(0.5);
-        this.add.text(centerX, centerY-220, 'Yufeng Xie,  Larry Li,  Jiaying Hou', text1Config).setOrigin(0.5);
+        this.add.text(centerX, centerY-220, 'Game Designer:', titleConfig).setOrigin(0.5);
+        this.add.text(centerX, centerY-180, 'Yufeng Xie,  Larry Li,  Jiaying Hou', text1Config).setOrigin(0.5);
 
-        this.add.text(centerX-294, centerY/3, 'Programmer:', titleConfig).setOrigin(0.5);
-        this.add.text(centerX-60, centerY/3, 'Yufeng Xie,  Larry Li', text1Config).setOrigin(0.5);
+        this.add.text(centerX, centerY/3+30, 'Programmer:', titleConfig).setOrigin(0.5);
+        this.add.text(centerX, centerY/3+70, 'Yufeng Xie,  Larry Li', text1Config).setOrigin(0.5);
 
-        // this.add.text(centerX/4, centerY/3, 'Sound Effect:', titleConfig).setOrigin(0.5);
-        // this.add.text(centerX/2, centerY-100, 'Larry Li', text1Config).setOrigin(0.5);
+        this.add.text(centerX, centerY-40, 'Sound Effect:', titleConfig).setOrigin(0.5);
+        this.add.text(centerX, centerY, 'Larry Li', text1Config).setOrigin(0.5);
 
-        // this.add.text(centerX/4, centerY/3, 'Art:', titleConfig).setOrigin(0.5);
-        // this.add.text(centerX/2, centerY-100, 'Jiaying Hou', text1Config).setOrigin(0.5);
+        this.add.text(centerX, centerY+45, 'Art:', titleConfig).setOrigin(0.5);
+        this.add.text(centerX, centerY+85, 'Jiaying Hou', text1Config).setOrigin(0.5);
 
-        // this.add.text(centerX/4, centerY, 'Music:', titleConfig).setOrigin(0.5);
-        // this.add.text(centerX, centerY+55, 'Jiaying Hou', text1Config).setOrigin(0.5);
+        this.add.text(centerX, centerY+130, 'Music:', titleConfig).setOrigin(0.5);
+        this.add.text(centerX, centerY+170, 'Jiaying Hou', text1Config).setOrigin(0.5);
         
         //type space to play
-        this.add.text(centerX, centerY+160, '[ Press (SPACE) to Return ]', creditConfig).setOrigin(0.5);
+        this.add.text(centerX, centerY+210, '[ Press (SPACE) to Return ]', creditConfig).setOrigin(0.5);
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     }
 
@@ -63,6 +57,7 @@ class Credits extends Phaser.Scene{
         this.background.tilePositionX += 1;
     
         if(Phaser.Input.Keyboard.JustDown(keySPACE)){
+            this.sound.play("select_music", { volume: 2.0 });
             this.scene.start("menuScene");
         }
     }

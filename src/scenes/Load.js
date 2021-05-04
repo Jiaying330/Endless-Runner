@@ -39,12 +39,21 @@ class Load extends Phaser.Scene {
 
         //load sounds
         this.load.path = './assets/audio/';
-        this.load.audio('jump_music', 'jump1.wav');
-        this.load.audio('death_music', 'dead1.wav');
-        this.load.audio('pickup_music', 'Pickup.wav');
-        this.load.audio('hit_music', 'hit.wav');
-
+        this.load.audio('jump_music', 'jump.mp3');
+        this.load.audio('jump_music2', 'jump2.mp3');
+        this.load.audio('death_music', 'dead.mp3');
+        this.load.audio('pickup_music', 'pick.mp3');
+        this.load.audio('hit_music', 'hit.mp3');
+        this.load.audio('hit_music2', 'hit2.mp3');
+        this.load.audio('select_music', 'select.mp3');
+        this.load.audio('shoot_music', 'shoot.mp3');
+        this.load.audio('foot_music', 'foot.mp3');
+        this.load.audio('foot_music2', 'foot2.mp3');
+        this.load.audio('crash_music', 'crash.mp3');
+        this.load.audio('car_music', 'car.mp3');
+        this.load.audio('eat_music', 'eat.mp3');
     }
+    
 
     create() {
         playMusic = true;
