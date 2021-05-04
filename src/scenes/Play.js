@@ -34,6 +34,7 @@ class Play extends Phaser.Scene {
         score = 0;
         level = 0;
         count = 0;
+        scence = 0;
         health = 5;
         Gameover = false;
         this.levelup = true;
@@ -344,16 +345,18 @@ class Play extends Phaser.Scene {
     levelBump() {
         level++;
         //make game start easy to hard
-        if (level % 45 == 0) {
+        if (level % 15 == 0) {
             this.addSpeed = 0;
             this.levelSpeed = 0;
             if (count % 2 == 0) {
                 this.city.setTexture('city');
                 this.groundScroll.setTexture('road_land');
+                scence = -1;
             }
             if (count % 2 == 1) {
                 this.city.setTexture('forest');
                 this.groundScroll.setTexture('ground');
+                scence = 1;
             }
             count++;
         } else {
@@ -367,15 +370,24 @@ class Play extends Phaser.Scene {
                 }
             }
         }
-        if (level % (5 + this.addSpeed) == 0) { this.addObject1(); }
-        if (level % (7 + this.addSpeed) == 0) { this.addObject2(); }
-        if (level % (7 + this.addSpeed) == 0) { this.addCrow(); }
-        if (level % (5 - this.levelSpeed) == 0) { this.addCactus(); }
-        if (level % (5 - this.levelSpeed) == 0) { this.addCar(); }
-        if (level % (5 - this.levelSpeed) == 0) {
-            this.addFoot();
+        if (scence == -1) {
+            if (level % (5 + this.addSpeed) == 0) { this.addObject1(); }
+            if (level % (7 + this.addSpeed) == 0) { this.addObject2(); }
+            if (level % (7 + this.addSpeed) == 0) { this.addCrow(); }
+            if (level % (5 - this.levelSpeed) == 0) { this.addCactus(); }
+            if (level % (4 - this.level2Speed) == 0) { this.addObstacle1(); }
+            if (level % (5 - this.levelSpeed) == 0) { this.addCar(); }
+            if (level % (5 - this.levelSpeed) == 0) {
+                this.addFoot();
+            }
+        } else {
+            if (level % (5 + this.addSpeed) == 0) { this.addObject1(); }
+            if (level % (7 + this.addSpeed) == 0) { this.addObject2(); }
+            if (level % (7 + this.addSpeed) == 0) { this.addCrow(); }
+            if (level % (5 - this.levelSpeed) == 0) { this.addCactus(); }
+            if (level % (4 - this.level2Speed) == 0) { this.addObstacle1(); }
         }
-        if (level % (4 - this.level2Speed) == 0) { this.addObstacle1(); }
+
     }
 
     // Dealling the collision with items

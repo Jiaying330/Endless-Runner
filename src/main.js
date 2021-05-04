@@ -42,6 +42,7 @@ const textSpacer = 50;
 let level;
 let score;
 let count;
+let scence;
 let health;
 let highScore;
 let newHighScore = false;
