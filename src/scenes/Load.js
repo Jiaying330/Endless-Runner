@@ -15,17 +15,24 @@ class Load extends Phaser.Scene {
             frameWideth: 25,
             frameHeight: 27
         });
+        
         this.load.image([
             { key: 'ground' },
             { key: 'object1' },
             { key: 'Object2' },
             { key: 'Cactus' },
-            { key: 'Obstacle1' },
+            // { key: 'Obstacle1' },
             { key: 'Car' },
             { key: 'weapon' },
             { key: 'crow' },
             { key: 'Foot' },
         ]);
+        this.load.spritesheet('fox', 'fox.jpg', {
+            frameWidth: 196,
+            frameHeight: 114,
+            starFrame: 0,
+            endFrame: 5
+          });
 
         //load sounds
         this.load.path = './assets/audio/';

@@ -9,6 +9,16 @@ class Play extends Phaser.Scene {
     }
 
     create() {
+        this.anims.create({
+            key: 'run',
+            frames: this.anims.generateFrameNumbers('fox', {
+              start: 0,
+              end: 5,
+              first: 0
+            }),
+            frameRate: 5,
+            repeat: -1
+          });
         // variables and settings
         this.JUMP_VELOCITY = -700;
         this.MAX_JUMPS = 2;
@@ -136,6 +146,7 @@ class Play extends Phaser.Scene {
     }
     addObstacle1() {
         let obstacle1 = new Obstacle1(this, this.obstacle1Speed).setScale(1.1);
+        obstacle1.anims.play('run');
         this.obstacle1Group.add(obstacle1);
     }
     addCrow() {
@@ -341,16 +352,16 @@ class Play extends Phaser.Scene {
                 }
             }
         }
-        // if (level % (5 + this.addSpeed) == 0) { this.addObject1(); }
-        // if (level % (7 + this.addSpeed) == 0) { this.addObject2(); }
-        // if (level % (7 + this.addSpeed) == 0) { this.addCrow(); }
-        // if (level % (5 - this.levelSpeed) == 0) { this.addCactus(); }
+        if (level % (5 + this.addSpeed) == 0) { this.addObject1(); }
+        if (level % (7 + this.addSpeed) == 0) { this.addObject2(); }
+        if (level % (7 + this.addSpeed) == 0) { this.addCrow(); }
+        if (level % (5 - this.levelSpeed) == 0) { this.addCactus(); }
         // if (level % (5 - this.levelSpeed) == 0) { this.addCar(); }
-        if (level % (5 - this.levelSpeed) == 0) {
-            console.log("Add foot");
-            this.addFoot();
-        }
-        // if (level % (4 - this.level2Speed) == 0) { this.addObstacle1(); }
+        // if (level % (5 - this.levelSpeed) == 0) {
+        //     console.log("Add foot");
+        //     this.addFoot();
+        // }
+        if (level % (4 - this.level2Speed) == 0) { this.addObstacle1(); }
     }
 
     // Dealling the collision with items
