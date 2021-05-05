@@ -449,7 +449,7 @@ class Play extends Phaser.Scene {
     levelBump() {
         level++;
         //make game start easy to hard
-        if (level % 20 == 0) {
+        if (level % 25 == 0) {
             this.addSpeed = 0;
             this.levelSpeed = 0;
             if (count % 2 == 0) {
