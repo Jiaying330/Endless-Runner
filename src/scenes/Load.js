@@ -20,7 +20,7 @@ class Load extends Phaser.Scene {
             { key: 'gun' },
             { key: 'mole' },
             { key: 'fox' },
-            { key: 'Car' },
+            { key: 'car' },
             { key: 'weapon' },
             { key: 'crow' },
             { key: 'Foot' },

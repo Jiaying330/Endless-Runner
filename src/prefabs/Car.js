@@ -2,7 +2,7 @@
 class Car extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, velocity) {
         // call Phaser Physics Sprite constructor
-        super(scene, game.config.width + Phaser.Math.Between(game.config.width, game.config.width * 2), game.config.height - tileSize - 185, 'Car');
+        super(scene, game.config.width + Phaser.Math.Between(game.config.width, game.config.width * 2), game.config.height - tileSize - 185, 'car');
         // set up physics sprite
         scene.add.existing(this);               // add to existing scene, displayList, updateList
         scene.physics.add.existing(this);       // add physics body
