@@ -153,36 +153,32 @@ class Play extends Phaser.Scene {
 
         //ADD text
         this.HealthText = this.add.text(10, 10, `Health: ${health}`, {
-            //backgroundColor: '#000000',
-            fontFamily: 'Helvetica',
+            fontFamily: 'Pangolin',
             fontSize: '30px',
-            color: '#FFFFFF',
-            stroke: '#000000',
-            strokeThickness: 3
+            color: '#FF0000 ',
+            stroke: '#6CBA8E',
+            strokeThickness: 2
         });
         this.ScoreText = this.add.text(600, 10, `Score: ${score}`, {
-            //backgroundColor: '#000000',
-            fontFamily: 'Helvetica',
+            fontFamily: 'Pangolin',
             fontSize: '30px',
-            color: '#FFFFFF',
-            stroke: '#000000',
-            strokeThickness: 3
+            color: '#E2ED42',
+            stroke: '#6CBA8E',
+            strokeThickness: 2
         });
-        this.AmoText = this.add.text(10, 50, `Amo: ${Amo}`, {
-            //backgroundColor: '#000000',
-            fontFamily: 'Helvetica',
+        this.AmoText = this.add.text(10, 445, `Ammo: ${Amo}`, {
+            fontFamily: 'Pangolin',
             fontSize: '30px',
-            color: '#FFFFFF',
-            stroke: '#000000',
-            strokeThickness: 3
+            color: '#D90BC4',
+            stroke: '#6CBA8E',
+            strokeThickness: 2
         });
         this.TimeText = this.add.text(300, 10, `Time: ${level}s`, {
-            //backgroundColor: '#000000',
-            fontFamily: 'Helvetica',
+            fontFamily: 'Pangolin',
             fontSize: '30px',
-            color: '#FFFFFF',
-            stroke: '#000000',
-            strokeThickness: 3
+            color: '#5A63E0',
+            stroke: '#6CBA8E',
+            strokeThickness: 2
         });
 
         // set up Phaser-provided cursor key input
@@ -277,7 +273,7 @@ class Play extends Phaser.Scene {
                 this.control = true;
                 this.sound.play("shoot_music", { volume: 2.0 });
                 Amo -= 1;
-                this.AmoText.setText('Amo: ' + Amo);
+                this.AmoText.setText('Ammo: ' + Amo);
             }
             //check world bounds
             if (this.cannonball.x > this.worldBounds.width || this.cannonball.y > this.worldBounds.height || this.cannonball.x < 0 || this.cannonball.y < 0) {
@@ -320,7 +316,7 @@ class Play extends Phaser.Scene {
                 this.object2.destroy();
                 this.cannonball.destroy();
                 Amo += 3;
-                this.AmoText.setText('Amo: ' + Amo);
+                this.AmoText.setText('Ammo: ' + Amo);
                 this.control = false;
                 this.itemCollision(this.object2);
             }
@@ -396,34 +392,34 @@ class Play extends Phaser.Scene {
                 this.cactus1 = this.cactusGroup.getFirst(true);
                 this.cactus1.destroy();
                 this.obstacleCollision(this.cactus1);
-                console.log("hit mit");
+                // console.log("hit mit");
             }
             if (this.physics.overlap(this.character, this.obstacle1Group)) {
                 this.obstacle1 = this.obstacle1Group.getFirst(true);
                 this.obstacle1.destroy();
                 this.obstacleCollision(this.obstacle1);
-                console.log("hit fox");
+                // console.log("hit fox");
             }
             if (this.physics.overlap(this.character, this.carGroup)) {
                 this.car = this.carGroup.getFirst(true);
                 this.car.destroy();
                 this.obstacleCollision(this.car);
-                console.log("hit car");
+                // console.log("hit car");
                 this.sound.play("crash_music", { volume: 5.0 });
             }
             if (this.physics.overlap(this.character, this.object1Group)) {
                 this.object1 = this.object1Group.getFirst(true);
                 this.object1.destroy();
                 this.itemCollision(this.object1);
-                console.log("hit musroom1");
+                // console.log("hit musroom");
             }
             if (this.physics.overlap(this.character, this.object2Group)) {
                 this.object2 = this.object2Group.getFirst(true);
                 this.object2.destroy();
                 Amo += 3;
-                this.AmoText.setText('Amo: ' + Amo);
+                this.AmoText.setText('Ammo: ' + Amo);
                 this.itemCollision(this.object2);
-                console.log("hit musroom2");
+                // console.log("hit gun");
             }
             if (this.physics.overlap(this.character, this.crowGroup)) {
                 this.crow = this.crowGroup.getFirst(true);
@@ -431,13 +427,13 @@ class Play extends Phaser.Scene {
                 this.ScoreText.setText('Score: ' + score);
                 this.crow.destroy();
                 this.sound.play('hit_music', { volume: 2.0 });
-                console.log("hit corw");
+                // console.log("hit corw");
             }
             if (this.physics.overlap(this.character, this.footGroup)) {
                 this.foot = this.footGroup.getFirst(true);
                 this.foot.destroy();
                 this.obstacleCollision(this.foot);
-                console.log("hit foot");
+                // console.log("hit foot");
             }
         } else if (Phaser.Input.Keyboard.JustDown(keyR)) {
             this.scene.restart(this.level);

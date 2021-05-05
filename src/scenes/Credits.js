@@ -6,7 +6,6 @@ class Credits extends Phaser.Scene{
     create(){
         //place background
         this.background = this.add.tileSprite(0, 0, 800, 480, 'forest').setOrigin(0.0);
-        console.log("Here");
         //UI and text
         let titleConfig = {
             fontFamily: 'Pangolin',

@@ -19,7 +19,6 @@ class Foot extends Phaser.Physics.Arcade.Sprite {
         // override physics sprite update()
         super.update();
         if (this.y < game.config.height-820){
-            console.log("destoried")
             this.destroy();
         }
     }
