@@ -39,7 +39,7 @@ class Instru2 extends Phaser.Scene{
         //add instructions
         this.add.text(centerX, centerY - 200, 'Characters:', instruConfig ).setOrigin(0.5);
         this.add.text(centerX, centerY - 150, 'Slug Origin Health: 5, up to 10', credit2Config).setOrigin(0.5);
-        this.add.text(centerX, centerY - 120, 'Weapon Damage: 1 per bullet0  ', credit2Config).setOrigin(0.5);
+        this.add.text(centerX, centerY - 120, 'Weapon Damage: 1 per bullet  ', credit2Config).setOrigin(0.5);
         this.add.text(centerX, centerY - 90, 'Mole Health: 2, Damage: 2 ', credit2Config).setOrigin(0.5);
         this.add.text(centerX, centerY - 60, 'Fox Health: 1, Damage: 2 ', credit2Config).setOrigin(0.5);
         this.add.text(centerX, centerY - 30, 'Crow Health: 1, Damage: 2 ', credit2Config).setOrigin(0.5);

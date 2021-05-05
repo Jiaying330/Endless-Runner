@@ -60,8 +60,8 @@ class Play extends Phaser.Scene {
                 end: 5,
                 first: 0
             }),
-            frameRate: 2,
-            repeat: -1
+            frameRate: 1,
+            repeat: 2
         });
         this.anims.create({
             key: 'explode',
@@ -89,7 +89,7 @@ class Play extends Phaser.Scene {
         level = 0;
         count = 0;
         scence = 0;
-        health = 1;
+        health = 10;
         Amo = 10;
         Gameover = false;
         this.levelup = true;
@@ -226,7 +226,7 @@ class Play extends Phaser.Scene {
     addCar() {
         let car = new Car(this, this.carSpeed).setScale(1.0);
         this.carGroup.add(car);
-        this.sound.play("car_music", { volume: 15.0 });
+        this.sound.play("car_music", { volume: 20.0 });
     }
     addFoot() {
         let foot = new Foot(this, 0).setScale(1.0);
@@ -271,7 +271,7 @@ class Play extends Phaser.Scene {
                 // this.cannonball.body.allowGravity = false;
                 this.physics.moveTo(this.cannonball, this.input.x, this.input.y, 800);
                 this.control = true;
-                this.sound.play("shoot_music", { volume: 2.0 });
+                this.sound.play("shoot_music", { volume: 5.0 });
                 Amo -= 1;
                 this.AmoText.setText('Ammo: ' + Amo);
             }
@@ -290,7 +290,7 @@ class Play extends Phaser.Scene {
                 }
                 this.cannonball.destroy();
                 this.control = false;
-                this.sound.play("hit_music", { volume: 3.0 });
+                this.sound.play("hit_music", { volume: 6.0 });
             }
             if (this.physics.overlap(this.cannonball, this.obstacle1Group)) {
                 this.obstacle1 = this.obstacle1Group.getFirst(true);
@@ -300,7 +300,7 @@ class Play extends Phaser.Scene {
                 this.obstacle1.destroy();
                 this.cannonball.destroy();
                 this.control = false;
-                this.sound.play("hit_music", { volume: 3.0 });
+                this.sound.play("hit_music", { volume: 6.0 });
             }
             if (this.physics.overlap(this.cannonball, this.object1Group)) {
                 this.object1 = this.object1Group.getFirst(true);
@@ -328,7 +328,7 @@ class Play extends Phaser.Scene {
                 this.crow.destroy();
                 this.cannonball.destroy();
                 this.control = false;
-                this.sound.play("hit_music", { volume: 3.0 });
+                this.sound.play("hit_music", { volume: 6.0 });
             }
 
 
@@ -423,10 +423,8 @@ class Play extends Phaser.Scene {
             }
             if (this.physics.overlap(this.character, this.crowGroup)) {
                 this.crow = this.crowGroup.getFirst(true);
-                score += this.crow.score;
-                this.ScoreText.setText('Score: ' + score);
+                this.obstacleCollision(this.crow )
                 this.crow.destroy();
-                this.sound.play('hit_music', { volume: 2.0 });
                 // console.log("hit corw");
             }
             if (this.physics.overlap(this.character, this.footGroup)) {
@@ -492,7 +490,7 @@ class Play extends Phaser.Scene {
 
     // Dealling the collision with items
     itemCollision(item) {
-        this.sound.play("eat_music", { volume: 4.0 });
+        this.sound.play("eat_music", { volume: 6.0 });
         score += item.score;
         if (health < 10) {
             health += item.hp;
@@ -510,8 +508,6 @@ class Play extends Phaser.Scene {
             this.character.destroy();
             this.GameOver();
             health -= item.hp;
-            score += item.score;
-            this.ScoreText.setText('Score: ' + score);
         } else {
             this.sound.play("hit_music", { volume: 2.0 });
             health -= item.hp;
