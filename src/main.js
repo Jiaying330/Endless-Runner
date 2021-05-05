@@ -49,3 +49,4 @@ let newHighScore = false;
 let Gameover;
 let bullets;
 let input;
+let Amo;

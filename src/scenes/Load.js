@@ -21,7 +21,7 @@ class Load extends Phaser.Scene {
             { key: 'Object2' },
             { key: 'Cactus' },
             { key: 'Obstacle1' },
-            { key: 'car' },
+            { key: 'Car' },
             { key: 'weapon' },
             { key: 'crow' },
             { key: 'Foot' },
@@ -30,12 +30,41 @@ class Load extends Phaser.Scene {
             { key: 'crouch_character' },
             { key: 'road_land' },
         ]);
-        this.load.spritesheet('fox', 'fox.jpg', {
-            frameWidth: 195,
-            frameHeight: 114,
+
+        this.load.spritesheet('fox', 'fox.png', {
+            frameWidth: 112.5,
+            frameHeight: 49,
+            starFrame: 0,
+            endFrame: 3
+        });
+
+        this.load.spritesheet('slug', 'Slug.png', {
+            frameWidth: 68,
+            frameHeight: 58,
+            starFrame: 0,
+            endFrame: 1
+        });
+
+        this.load.spritesheet('crouch_slug', 'crouch_character.png', {
+            frameWidth: 67,
+            frameHeight: 20,
+            starFrame: 0,
+            endFrame: 0
+        });
+
+        this.load.spritesheet('crow_spirtSheet', 'crow_anims.png', {
+            frameWidth: 64,
+            frameHeight: 56,
             starFrame: 0,
             endFrame: 5
-          });
+        });
+
+        this.load.spritesheet('anims_mole', 'Mole.png', {
+            frameWidth: 64,
+            frameHeight: 43,
+            starFrame: 0,
+            endFrame: 5
+        });
 
         //load sounds
         this.load.path = './assets/audio/';

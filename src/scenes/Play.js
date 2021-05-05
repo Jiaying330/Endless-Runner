@@ -10,7 +10,7 @@ class Play extends Phaser.Scene {
 
     create() {
         //create background music
-        this.backgroundMusic = this.sound.add('bgm',{mute: false, volume: 0.5, rate: 1,loop: true });
+        this.backgroundMusic = this.sound.add('bgm', { mute: false, volume: 0.5, rate: 1, loop: true });
         this.backgroundMusic.play();
 
 
@@ -18,12 +18,53 @@ class Play extends Phaser.Scene {
             key: 'run',
             frames: this.anims.generateFrameNumbers('fox', {
                 start: 0,
+                end: 3,
+                first: 0
+            }),
+            frameRate: 5,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'move',
+            frames: this.anims.generateFrameNumbers('slug', {
+                start: 0,
+                end: 1,
+                first: 0
+            }),
+            frameRate: 5,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'crouch',
+            frames: this.anims.generateFrameNumbers('crouch_slug', {
+                start: 0,
+                end: 0,
+                first: 0
+            }),
+            frameRate: 1,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'anims_crow',
+            frames: this.anims.generateFrameNumbers('crow_spirtSheet', {
+                start: 0,
                 end: 5,
                 first: 0
             }),
             frameRate: 5,
             repeat: -1
         });
+        this.anims.create({
+            key: 'Mole',
+            frames: this.anims.generateFrameNumbers('anims_mole', {
+                start: 0,
+                end: 5,
+                first: 0
+            }),
+            frameRate: 6,
+            repeat: -1
+        });
+
         // variables and settings
         this.JUMP_VELOCITY = -700;
         this.MAX_JUMPS = 2;
@@ -41,6 +82,7 @@ class Play extends Phaser.Scene {
         count = 0;
         scence = 0;
         health = 5;
+        Amo = 10;
         Gameover = false;
         this.levelup = true;
         this.addSpeed = 0;
@@ -118,6 +160,14 @@ class Play extends Phaser.Scene {
             stroke: '#000000',
             strokeThickness: 3
         });
+        this.AmoText = this.add.text(300, 10, `Amo: ${Amo}`, {
+            //backgroundColor: '#000000',
+            fontFamily: 'Helvetica',
+            fontSize: '30px',
+            color: '#FFFFFF',
+            stroke: '#000000',
+            strokeThickness: 3
+        });
 
         // set up Phaser-provided cursor key input
         cursors = this.input.keyboard.createCursorKeys();
@@ -148,15 +198,17 @@ class Play extends Phaser.Scene {
     //add obstacle
     addCactus() {
         let cactus = new Cactus(this, this.cactusSpeed).setScale(1.0);
+        cactus.anims.play('Mole');
         this.cactusGroup.add(cactus);
     }
     addObstacle1() {
         let obstacle1 = new Obstacle1(this, this.obstacle1Speed).setScale(1.1);
-        // obstacle1.anims.play('run');
+        obstacle1.anims.play('run');
         this.obstacle1Group.add(obstacle1);
     }
     addCrow() {
         let crow = new Crow(this, this.itemSpeed1).setScale(1.5);
+        crow.anims.play('anims_crow');
         this.crowGroup.add(crow);
     }
     addCar() {
@@ -197,15 +249,17 @@ class Play extends Phaser.Scene {
             //rotation cannon
             this.cannon.setRotation(angle);
             //mouse clicked
-            if (this.mouse.isDown && this.control == false) {
+            if (this.mouse.isDown && this.control == false && Amo >= 1) {
                 //for fire again
                 this.cannonball = this.physics.add.sprite(this.character.x, this.character.y - 30, 'bullet');
                 //move to mouse position 
                 this.cannonball.body.setAllowGravity(false);
-                // this.cannonball.body.allowGravity = false;
+                // this.cannonball.body.allowGravity = false;
                 this.physics.moveTo(this.cannonball, this.input.x, this.input.y, 800);
                 this.control = true;
                 this.sound.play("shoot_music", { volume: 2.0 });
+                Amo -= 1;
+                this.AmoText.setText('Amo: ' + Amo);
             }
             //check world bounds
             if (this.cannonball.x > this.worldBounds.width || this.cannonball.y > this.worldBounds.height || this.cannonball.x < 0 || this.cannonball.y < 0) {
@@ -239,6 +293,8 @@ class Play extends Phaser.Scene {
                 this.object2 = this.object2Group.getFirst(true);
                 this.object2.destroy();
                 this.cannonball.destroy();
+                Amo += 3;
+                this.AmoText.setText('Amo: ' + Amo);
                 this.control = false;
                 this.itemCollision(this.object2);
             }
@@ -258,30 +314,36 @@ class Play extends Phaser.Scene {
                 this.jumps = this.MAX_JUMPS;
                 this.jumping = false;
                 this.character.body.x = this.character.body.x;
-                // this.character.body.velocity.x = -100;
             }
+            // this.character.anims.play('move', true);
 
             // Move to the left
             if (keyA.isDown && this.character.body.x >= 10) {
+                if (!keyS.isDown) {
+                    this.character.anims.play('move', true);
+                }
                 this.character.body.x -= 6;
             }
             // Move to the right
             if (keyD.isDown && this.character.body.x <= 730) {
+                if (!keyS.isDown) {
+                    this.character.anims.play('move', true);
+                }
                 this.character.body.x += 6;
             }
             // Character Crouching 
             if (this.character.body.touching.down) {
                 if (keyS.isDown) {
 
-                    this.character.setTexture('crouch_character');
+                    this.character.anims.play('crouch', true);
 
                     this.character.setY(game.config.height - tileSize);
 
                     this.character.setCollideWorldBounds(true);
                 }
             }
-            if (!keyS.isDown) {
-                this.character.setTexture('character');
+            if (keyS.isUp) {
+                this.character.anims.play('move', true);
             }
 
             // allow steady velocity change up to a certain key down duration
@@ -329,6 +391,8 @@ class Play extends Phaser.Scene {
             if (this.physics.overlap(this.character, this.object2Group)) {
                 this.object2 = this.object2Group.getFirst(true);
                 this.object2.destroy();
+                Amo += 3;
+                this.AmoText.setText('Amo: ' + Amo);
                 this.itemCollision(this.object2);
                 console.log("hit musroom2");
             }
@@ -439,6 +503,7 @@ class Play extends Phaser.Scene {
         this.HealthText.destroy();
         this.ScoreText.destroy();
         this.cannon.destroy();
+        this.AmoText.destroy();
 
         // check for high score in local storage
         if (localStorage.getItem('highScore') != null) {
