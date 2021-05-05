@@ -9,6 +9,11 @@ class Play extends Phaser.Scene {
     }
 
     create() {
+        //create background music
+        this.backgroundMusic = this.sound.add('bgm',{mute: false, volume: 0.5, rate: 1,loop: true });
+        this.backgroundMusic.play();
+
+
         this.anims.create({
             key: 'run',
             frames: this.anims.generateFrameNumbers('fox', {
@@ -300,39 +305,44 @@ class Play extends Phaser.Scene {
                 this.cactus1 = this.cactusGroup.getFirst(true);
                 this.cactus1.destroy();
                 this.obstacleCollision(this.cactus1);
-                console.log("hit cactus");
+                console.log("hit mit");
             }
             if (this.physics.overlap(this.character, this.obstacle1Group)) {
                 this.obstacle1 = this.obstacle1Group.getFirst(true);
                 this.obstacle1.destroy();
                 this.obstacleCollision(this.obstacle1);
-                console.log("hit obstacle1");
+                console.log("hit fox");
             }
             if (this.physics.overlap(this.character, this.carGroup)) {
                 this.car = this.carGroup.getFirst(true);
                 this.car.destroy();
                 this.obstacleCollision(this.car);
+                console.log("hit car");
                 this.sound.play("crash_music", { volume: 4.0 });
             }
             if (this.physics.overlap(this.character, this.object1Group)) {
                 this.object1 = this.object1Group.getFirst(true);
                 this.object1.destroy();
                 this.itemCollision(this.object1);
+                console.log("hit musroom1");
             }
             if (this.physics.overlap(this.character, this.object2Group)) {
                 this.object2 = this.object2Group.getFirst(true);
                 this.object2.destroy();
                 this.itemCollision(this.object2);
+                console.log("hit musroom2");
             }
             if (this.physics.overlap(this.character, this.crowGroup)) {
                 this.crow = this.crowGroup.getFirst(true);
                 this.crow.destroy();
                 this.itemCollision(this.crow);
+                console.log("hit corw");
             }
             if (this.physics.overlap(this.character, this.footGroup)) {
                 this.foot = this.footGroup.getFirst(true);
                 this.foot.destroy();
                 this.obstacleCollision(this.foot);
+                console.log("hit foot");
             }
         } else if (Phaser.Input.Keyboard.JustDown(keyR)) {
             this.scene.restart(this.level);

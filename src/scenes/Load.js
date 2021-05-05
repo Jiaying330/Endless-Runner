@@ -21,7 +21,7 @@ class Load extends Phaser.Scene {
             { key: 'Object2' },
             { key: 'Cactus' },
             { key: 'Obstacle1' },
-            { key: 'Car' },
+            { key: 'car' },
             { key: 'weapon' },
             { key: 'crow' },
             { key: 'Foot' },
@@ -52,6 +52,7 @@ class Load extends Phaser.Scene {
         this.load.audio('crash_music', 'crash.mp3');
         this.load.audio('car_music', 'car.mp3');
         this.load.audio('eat_music', 'eat.mp3');
+        this.load.audio('bgm', 'jiaying330 - slug.mp3');
     }
     
 
