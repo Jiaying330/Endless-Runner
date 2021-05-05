@@ -63,6 +63,15 @@ class Play extends Phaser.Scene {
             frameRate: 6,
             repeat: -1
         });
+        this.anims.create({
+            key: 'explode',
+            frames: this.anims.generateFrameNumbers('explosion', {
+                start: 0,
+                end: 5,
+                first: 0
+            }),
+            frameRate: 10
+        });
 
         // variables and settings
         this.JUMP_VELOCITY = -700;
@@ -268,6 +277,7 @@ class Play extends Phaser.Scene {
                 this.cactus1 = this.cactusGroup.getFirst(true);
                 this.cactusHealth++;
                 if (this.cactusHealth >= 2) {
+                    this.objExplode(this.cactus1);
                     this.cactus1.destroy();
                 }
                 this.cannonball.destroy();
@@ -276,6 +286,7 @@ class Play extends Phaser.Scene {
             }
             if (this.physics.overlap(this.cannonball, this.obstacle1Group)) {
                 this.obstacle1 = this.obstacle1Group.getFirst(true);
+                this.objExplode(this.obstacle1);
                 this.obstacle1.destroy();
                 this.cannonball.destroy();
                 this.control = false;
@@ -283,6 +294,7 @@ class Play extends Phaser.Scene {
             }
             if (this.physics.overlap(this.cannonball, this.object1Group)) {
                 this.object1 = this.object1Group.getFirst(true);
+                this.objExplode(this.object1);
                 this.object1.destroy();
                 this.cannonball.destroy();
                 this.control = false;
@@ -290,6 +302,7 @@ class Play extends Phaser.Scene {
             }
             if (this.physics.overlap(this.cannonball, this.object2Group)) {
                 this.object2 = this.object2Group.getFirst(true);
+                this.objExplode(this.object2);
                 this.object2.destroy();
                 this.cannonball.destroy();
                 Amo += 3;
@@ -299,6 +312,7 @@ class Play extends Phaser.Scene {
             }
             if (this.physics.overlap(this.cannonball, this.crowGroup)) {
                 this.crow = this.crowGroup.getFirst(true);
+                this.objExplode(this.crow);
                 this.crow.destroy();
                 this.cannonball.destroy();
                 this.control = false;
@@ -488,6 +502,19 @@ class Play extends Phaser.Scene {
             this.HealthText.setText('Health: ' + health);
         }
 
+    }
+
+    objExplode(obj) {
+
+        obj.alpha = 0;
+
+        let boom = this.add.sprite(obj.x, obj.y, 'explosion').setScale(0.4).setOrigin(0.5, 0.5);
+        boom.anims.play('explode');
+        boom.on('animationcomplete', () => {
+            // obj.reset();
+            //   obj.alpha = 1;
+            boom.destroy();
+        });
     }
 
     // When the game is over

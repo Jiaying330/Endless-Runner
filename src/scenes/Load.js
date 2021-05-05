@@ -14,7 +14,7 @@ class Load extends Phaser.Scene {
             frameWideth: 25,
             frameHeight: 27
         });
-        
+
         this.load.image([
             { key: 'ground' },
             { key: 'object1' },
@@ -66,6 +66,13 @@ class Load extends Phaser.Scene {
             endFrame: 5
         });
 
+        this.load.spritesheet('explosion', 'explosion.png', {
+            frameWidth: 211,
+            frameHeight: 203,
+            starFrame: 0,
+            endFrame: 5
+        });
+
         //load sounds
         this.load.path = './assets/audio/';
         this.load.audio('jump_music', 'jump3.mp3');
@@ -80,7 +87,7 @@ class Load extends Phaser.Scene {
         this.load.audio('eat_music', 'eat.mp3');
         this.load.audio('bgm', 'jiaying330 - slug.mp3');
     }
-    
+
 
     create() {
         playMusic = true;
