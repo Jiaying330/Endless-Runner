@@ -7,7 +7,6 @@ class Load extends Phaser.Scene {
         //load imgs
         this.load.path = './assets/img/';
         //load background
-        this.load.image('background', 'Background.png');
         this.load.image('character', 'player.png');
         this.load.image('forest', 'forest.png');
         this.load.image('block', 'block.png', {
@@ -75,7 +74,7 @@ class Load extends Phaser.Scene {
 
         //load sounds
         this.load.path = './assets/audio/';
-        this.load.audio('jump_music', 'jump3.mp3');
+        this.load.audio('jump_music', 'jump.mp3');
         this.load.audio('death_music', 'dead.mp3');
         this.load.audio('pickup_music', 'pick.mp3');
         this.load.audio('hit_music', 'hit.mp3');

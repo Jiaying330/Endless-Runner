@@ -60,7 +60,7 @@ class Play extends Phaser.Scene {
                 end: 5,
                 first: 0
             }),
-            frameRate: 6,
+            frameRate: 2,
             repeat: -1
         });
         this.anims.create({
@@ -168,7 +168,15 @@ class Play extends Phaser.Scene {
             stroke: '#000000',
             strokeThickness: 3
         });
-        this.AmoText = this.add.text(300, 10, `Amo: ${Amo}`, {
+        this.AmoText = this.add.text(10, 50, `Amo: ${Amo}`, {
+            //backgroundColor: '#000000',
+            fontFamily: 'Helvetica',
+            fontSize: '30px',
+            color: '#FFFFFF',
+            stroke: '#000000',
+            strokeThickness: 3
+        });
+        this.TimeText = this.add.text(300, 10, `Time: ${level}s`, {
             //backgroundColor: '#000000',
             fontFamily: 'Helvetica',
             fontSize: '30px',
@@ -252,6 +260,8 @@ class Play extends Phaser.Scene {
         //check game
         if (!Gameover) {
 
+            this.TimeText.setText('Time: ' + level + 's');
+
             //angle between mouse and ball
             let angle = Phaser.Math.Angle.Between(this.cannon.x, this.cannon.y, this.input.x, this.input.y);
             //rotation cannon
@@ -277,6 +287,8 @@ class Play extends Phaser.Scene {
                 this.cactus1 = this.cactusGroup.getFirst(true);
                 this.cactusHealth++;
                 if (this.cactusHealth >= 2) {
+                    score += this.cactus1.score;
+                    this.ScoreText.setText('Score: ' + score);
                     this.objExplode(this.cactus1);
                     this.cactus1.destroy();
                 }
@@ -286,6 +298,8 @@ class Play extends Phaser.Scene {
             }
             if (this.physics.overlap(this.cannonball, this.obstacle1Group)) {
                 this.obstacle1 = this.obstacle1Group.getFirst(true);
+                score += this.obstacle1.score;
+                this.ScoreText.setText('Score: ' + score);
                 this.objExplode(this.obstacle1);
                 this.obstacle1.destroy();
                 this.cannonball.destroy();
@@ -312,6 +326,8 @@ class Play extends Phaser.Scene {
             }
             if (this.physics.overlap(this.cannonball, this.crowGroup)) {
                 this.crow = this.crowGroup.getFirst(true);
+                score += this.crow.score;
+                this.ScoreText.setText('Score: ' + score);
                 this.objExplode(this.crow);
                 this.crow.destroy();
                 this.cannonball.destroy();
@@ -364,7 +380,7 @@ class Play extends Phaser.Scene {
                 this.character.body.x = this.character.body.x;
                 this.character.body.velocity.y = this.JUMP_VELOCITY * 1.2;
                 this.jumping = true;
-                this.sound.play('jump_music', { volume: 3.0, rate: 0.4 });
+                this.sound.play('jump_music', { volume: 0.1 });
             }
             // finally, letting go of the UP key subtracts a jump
             if (this.jumping && Phaser.Input.Keyboard.UpDuration(cursors.space)) {
@@ -411,8 +427,10 @@ class Play extends Phaser.Scene {
             }
             if (this.physics.overlap(this.character, this.crowGroup)) {
                 this.crow = this.crowGroup.getFirst(true);
+                score += this.crow.score;
+                this.ScoreText.setText('Score: ' + score);
                 this.crow.destroy();
-                this.itemCollision(this.crow);
+                this.sound.play('hit_music', { volume: 2.0 });
                 console.log("hit corw");
             }
             if (this.physics.overlap(this.character, this.footGroup)) {
@@ -496,12 +514,14 @@ class Play extends Phaser.Scene {
             this.character.destroy();
             this.GameOver();
             health -= item.hp;
+            score += item.score;
         } else {
             this.sound.play("hit_music", { volume: 2.0 });
             health -= item.hp;
+            score += item.score;
             this.HealthText.setText('Health: ' + health);
         }
-
+        this.ScoreText.setText('Score: ' + score);
     }
 
     objExplode(obj) {
@@ -530,6 +550,7 @@ class Play extends Phaser.Scene {
         this.ScoreText.destroy();
         this.cannon.destroy();
         this.AmoText.destroy();
+        this.TimeText.destroy();
 
         // check for high score in local storage
         if (localStorage.getItem('highScore') != null) {
