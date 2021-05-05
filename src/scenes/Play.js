@@ -318,8 +318,12 @@ class Play extends Phaser.Scene {
                 this.objExplode(this.gun1);
                 this.gun1.destroy();
                 this.cannonball.destroy();
-                Amo += 3;
+                if (Amo < 10) {
+                    for (let i = 0; i<3; i++){
+                        if (Amo < 10) Amo ++;
+                    }
                 this.AmoText.setText('Ammo: ' + Amo);
+                }
                 this.control = false;
                 this.itemCollision(this.gun1);
             }
@@ -421,8 +425,12 @@ class Play extends Phaser.Scene {
             if (this.physics.overlap(this.character, this.gunGroup)) {
                 this.gun1 = this.gunGroup.getFirst(true);
                 this.gun1.destroy();
-                Amo += 3;
+                if (Amo < 10) {
+                    for (let i = 0; i<3; i++){
+                        if (Amo < 10) Amo ++;
+                    }
                 this.AmoText.setText('Ammo: ' + Amo);
+                }
                 this.itemCollision(this.gun1);
                 // console.log("hit gun");
             }
@@ -467,10 +475,10 @@ class Play extends Phaser.Scene {
             if (level % 10 == 0) {
                 this.addSpeed++;
                 if (this.levelSpeed < 4) {
-                    this.levelSpeed++;
+                    this.levelSpeed += 2;
                 }
                 if (this.level2Speed < 3) {
-                    this.level2Speed++;
+                    this.level2Speed += 2;
                 }
             }
         }
