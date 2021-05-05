@@ -62,7 +62,7 @@ class Instru3 extends Phaser.Scene {
         this.add.text(centerX, centerY, 'Health: inf, Damage: 4 ', credit2Config).setOrigin(0.5);
 
         this.add.text(centerX-225, centerY + 30, 'Car:', credit2Config).setOrigin(0.5);
-        this.add.image(centerX - 155, 280, 'Car').setScale(0.05).setOrigin(0.5);
+        this.add.image(centerX - 155, 280, 'car').setScale(0.05).setOrigin(0.5);
         this.add.text(centerX, centerY + 30, 'Health: inf, Damage: 6 ', credit2Config).setOrigin(0.5);
 
 
