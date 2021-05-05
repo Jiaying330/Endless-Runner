@@ -3,7 +3,6 @@ class Instru2 extends Phaser.Scene{
         super("instruScene2");
     }
     
-
     create(){
         //place background
         this.background = this.add.tileSprite(0, 0, 800, 480, 'forest').setOrigin(0.0);
@@ -37,33 +36,34 @@ class Instru2 extends Phaser.Scene{
             fixedWidth: 0,
         }
         //add instructions
-        this.add.text(centerX, centerY - 200, 'Characters:', instruConfig ).setOrigin(0.5);
-        this.add.text(centerX, centerY - 150, 'Slug Origin Health: 5, up to 10', credit2Config).setOrigin(0.5);
-        this.add.text(centerX, centerY - 120, 'Weapon Damage: 1 per bullet  ', credit2Config).setOrigin(0.5);
-        this.add.text(centerX, centerY - 90, 'Mole Health: 2, Damage: 2 ', credit2Config).setOrigin(0.5);
-        this.add.text(centerX, centerY - 60, 'Fox Health: 1, Damage: 2 ', credit2Config).setOrigin(0.5);
-        this.add.text(centerX, centerY - 30, 'Crow Health: 1, Damage: 2 ', credit2Config).setOrigin(0.5);
-        this.add.text(centerX, centerY - 0, 'Human Foot Health: inf, Damage: 4 ', credit2Config).setOrigin(0.5);
-        this.add.text(centerX, centerY + 30, 'Car Health: inf, Damage: 6 ', credit2Config).setOrigin(0.5);
-        this.add.text(centerX, centerY + 80, 'Objects:', instruConfig ).setOrigin(0.5);
-        this.add.text(centerX, centerY + 120, 'Ammo: get 3 bullets ', credit2Config).setOrigin(0.5);
-        this.add.text(centerX, centerY + 150, 'Mashrooms: restore 2 health ', credit2Config).setOrigin(0.5);
+        this.add.text(centerX, centerY - 200, 'Goals:', instruConfig ).setOrigin(0.5);
+        this.add.text(centerX, centerY - 140, 'Control the (Slug), adventure through (2 Stages)', credit2Config).setOrigin(0.5);
+        this.add.text(centerX, centerY -70, 'Diffrent (Stages) have some different (Enemies)', credit2Config).setOrigin(0.5);
+        this.add.text(centerX, centerY, 'Use your (Mobility) to avoid (Enemies)', credit2Config).setOrigin(0.5);
+        this.add.text(centerX, centerY +70, 'Collecting (items) to restore (HP) or (Ammo)', credit2Config).setOrigin(0.5);
+        this.add.text(centerX, centerY+140, 'Survive as (Long) as you could, and collect much (Score) as possible', credit2Config).setOrigin(0.5);
+
         
         
         //type space to play
-        this.add.text(centerX, 440, '[ Press (SPACE) to Return ]', creditConfig).setOrigin(0.5);
-        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-
-        
+        this.add.text(centerX-200, 440, '[ Press (A) to Prev Page ]', creditConfig).setOrigin(0.5);
+        this.add.text(centerX+200, 440, '[ Press (D) to Next Page ]', creditConfig).setOrigin(0.5);
+        keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     }
 
     update(){
         //scroll the background
         this.background.tilePositionX += 1;
 
-        if(Phaser.Input.Keyboard.JustDown(keySPACE)){
+        if(Phaser.Input.Keyboard.JustDown(keyA)){
             this.sound.play("select_music", { volume: 2.0 });
-            this.scene.start("menuScene");
+            this.scene.start("instruScene");
+        }
+
+        if(Phaser.Input.Keyboard.JustDown(keyD)){
+            this.sound.play("select_music", { volume: 2.0 });
+            this.scene.start("instruScene3");
         }
     }
 }

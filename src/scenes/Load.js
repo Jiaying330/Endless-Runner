@@ -16,10 +16,10 @@ class Load extends Phaser.Scene {
 
         this.load.image([
             { key: 'ground' },
-            { key: 'object1' },
-            { key: 'Object2' },
-            { key: 'Cactus' },
-            { key: 'Obstacle1' },
+            { key: 'mushroom' },
+            { key: 'gun' },
+            { key: 'mole' },
+            { key: 'fox' },
             { key: 'Car' },
             { key: 'weapon' },
             { key: 'crow' },
@@ -30,7 +30,7 @@ class Load extends Phaser.Scene {
             { key: 'road_land' },
         ]);
 
-        this.load.spritesheet('fox', 'fox.png', {
+        this.load.spritesheet('anims_fox', 'anims_fox.png', {
             frameWidth: 112.5,
             frameHeight: 49,
             starFrame: 0,
@@ -58,7 +58,7 @@ class Load extends Phaser.Scene {
             endFrame: 5
         });
 
-        this.load.spritesheet('anims_mole', 'Mole.png', {
+        this.load.spritesheet('anims_mole', 'anims_Mole.png', {
             frameWidth: 64,
             frameHeight: 43,
             starFrame: 0,

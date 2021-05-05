@@ -37,9 +37,13 @@ class Instru extends Phaser.Scene{
             fixedWidth: 0,
         }
         //add instructions
-        this.add.text(centerX, centerY-60, 'Instruction', instruConfig).setOrigin(0.5);
-        this.add.text(centerX, centerY, '(A) & (D) to move, (S) to crouch, (Space) to Jump', credit2Config).setOrigin(0.5);
-        this.add.text(centerX, centerY+40, 'Mouse to aim (Left Button) to shoot', credit2Config).setOrigin(0.5);
+        let menu1Config = { fontFamily: 'Pangolin', fontSize: '50px', color: '#ffff00', stroke: '#000000', strokeThickness: 3, padding: { top: 5, bottom: 5, }, fixedWidth: 0 }
+        this.add.text(centerX, centerY -140, 'Hey Slug, Ready to See the World?', menu1Config).setOrigin(0.5);
+
+        this.add.text(centerX, centerY-30, 'Instruction', instruConfig).setOrigin(0.5);
+        this.add.text(centerX, centerY+30, '(A) & (D) to Move, (S) to Crouch, (Space) to Jump', credit2Config).setOrigin(0.5);
+        this.add.text(centerX, centerY+70, '(Space)x2 to Double Jump', credit2Config).setOrigin(0.5);
+        this.add.text(centerX, centerY+110, 'Mouse to aim, (Left Button) to shoot', credit2Config).setOrigin(0.5);
         
         //type space to play
         this.add.text(centerX, 420, '[ Press (D) to Next Page]', creditConfig).setOrigin(0.5);

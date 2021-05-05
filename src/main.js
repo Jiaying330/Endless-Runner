@@ -1,12 +1,32 @@
-// Demo version(1.0)
+/*
+Group Member:
+    Larry Li
+    Yufeng Xie
+    Ying Jia
+
+Gmae Title:
+    Slug Run!
+
+Date completed:
+    5/5/2021
+
+Creative Tilt Justification:
+    We added the mouse tracing system which the weapon will always
+    points to the mouse cursor.(In Play.js Line: 264)
+
+    For most of our characters, we have animations for them. We have
+    6 different characters and two game scenes to match our theme and
+    storyline. We also have animation when the player hits an enemy. 
+    The background music is created using Audiotool.
+*/
 
 let config = {
     type: Phaser.AUTO,
     width: 800,
     height: 480,
-    // scale: {
-    //     autoCenter: Phaser.Scale.CENTER_BOTH
-    // },
+    scale: {
+        autoCenter: Phaser.Scale.CENTER_BOTH
+    },
     physics: {
         default: 'arcade',
         arcade: {
@@ -16,7 +36,7 @@ let config = {
             }
         }
     },
-    scene: [Load, Menu, Play, Credits, Instru, Instru2]
+    scene: [Load, Menu, Play, Credits, Instru, Instru2, Instru3]
 };
 
 let game = new Phaser.Game(config);

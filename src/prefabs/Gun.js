@@ -1,8 +1,8 @@
-//Object2 prefabs
-class Object2 extends Phaser.Physics.Arcade.Sprite {
+//Gun prefabs
+class Gun extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, velocity) {
         // call Phaser Physics Sprite constructor
-        super(scene, game.config.width + Phaser.Math.Between(game.config.width, game.config.width * 2), Phaser.Math.Between(100, 250), 'Object2');
+        super(scene, game.config.width + Phaser.Math.Between(game.config.width, game.config.width * 2), Phaser.Math.Between(100, 250), 'gun');
         // set up physics sprite
         scene.add.existing(this);               // add to existing scene, displayList, updateList
         scene.physics.add.existing(this);       // add physics body

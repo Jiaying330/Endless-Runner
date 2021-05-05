@@ -32,8 +32,10 @@ class Menu extends Phaser.Scene {
 
 
         this.add.text(centerX, centerY -100, 'Slug Run!', menuConfig).setOrigin(0.5);
-        let menu1Config = { fontFamily: 'Pangolin', fontSize: '40px', color: '#000000', stroke: '#FFFFFF', strokeThickness: 3, padding: { top: 5, bottom: 5, }, fixedWidth: 0 }
-        this.add.text(centerX, centerY + 60, 'Press (SPACE) to Start', menu1Config).setOrigin(0.5);
+
+        let menu1Config = { fontFamily: 'Pangolin', fontSize: '50px', color: '#4040ff', stroke: '#FFFFFF', strokeThickness: 3, padding: { top: 5, bottom: 5, }, fixedWidth: 0 }
+        this.add.text(centerX, centerY + 75, 'Press (SPACE) to Start', menu1Config).setOrigin(0.5);
+
         menu1Config = { fontFamily: 'Pangolin', fontSize: '30px', color: '#000000', stroke: '#FFFFFF', strokeThickness: 3, padding: { top: 5, bottom: 5, }, fixedWidth: 0 }
         this.add.text(centerX, centerY + 170, 'Press (W) for Instruction', menu1Config).setOrigin(0.5);
         this.add.text(centerX, centerY + 210, 'Press (S) for Credit', menu1Config).setOrigin(0.5);
