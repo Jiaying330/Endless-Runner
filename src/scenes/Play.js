@@ -13,7 +13,6 @@ class Play extends Phaser.Scene {
         this.backgroundMusic = this.sound.add('bgm', { mute: false, volume: 0.5, rate: 1, loop: true });
         this.backgroundMusic.play();
 
-
         this.anims.create({
             key: 'run',
             frames: this.anims.generateFrameNumbers('fox', {
@@ -81,7 +80,7 @@ class Play extends Phaser.Scene {
         level = 0;
         count = 0;
         scence = 0;
-        health = 5;
+        health = 10;
         Amo = 10;
         Gameover = false;
         this.levelup = true;
@@ -419,7 +418,7 @@ class Play extends Phaser.Scene {
     levelBump() {
         level++;
         //make game start easy to hard
-        if (level % 15 == 0) {
+        if (level % 20 == 0) {
             this.addSpeed = 0;
             this.levelSpeed = 0;
             if (count % 2 == 0) {
@@ -445,23 +444,22 @@ class Play extends Phaser.Scene {
             }
         }
         if (scence == -1) {
-            if (level % (5 + this.addSpeed) == 0) { this.addObject1(); }
-            if (level % (7 + this.addSpeed) == 0) { this.addObject2(); }
-            if (level % (7 + this.addSpeed) == 0) { this.addCrow(); }
-            if (level % (5 - this.levelSpeed) == 0) { this.addCactus(); }
-            if (level % (4 - this.level2Speed) == 0) { this.addObstacle1(); }
-            if (level % (5 - this.levelSpeed) == 0) { this.addCar(); }
-            if (level % (5 - this.levelSpeed) == 0) {
+            if (level % (this.addSpeed + 8) == 0) { this.addObject1(); }
+            if (level % (this.addSpeed + 3) == 0) { this.addObject2(); }
+            if (level % (this.addSpeed + 5) == 0) { this.addCrow(); }
+            if (level % (this.levelSpeed + 6) == 0) { this.addCactus(); }
+            if (level % (this.level2Speed + 5) == 0) { this.addObstacle1(); }
+            if (level % (this.levelSpeed + 8) == 0) { this.addCar(); }
+            if (level % (this.levelSpeed + 7) == 0) {
                 this.addFoot();
             }
         } else {
-            if (level % (5 + this.addSpeed) == 0) { this.addObject1(); }
-            if (level % (7 + this.addSpeed) == 0) { this.addObject2(); }
-            if (level % (7 + this.addSpeed) == 0) { this.addCrow(); }
-            if (level % (5 - this.levelSpeed) == 0) { this.addCactus(); }
-            if (level % (4 - this.level2Speed) == 0) { this.addObstacle1(); }
+            if (level % (this.addSpeed + 8) == 0) { this.addObject1(); }
+            if (level % (this.addSpeed + 5) == 0) { this.addObject2(); }
+            if (level % (this.addSpeed + 4) == 0) { this.addCrow(); }
+            if (level % (this.levelSpeed + 5) == 0) { this.addCactus(); }
+            if (level % (this.level2Speed + 3) == 0) { this.addObstacle1(); }
         }
-
     }
 
     // Dealling the collision with items
@@ -494,6 +492,7 @@ class Play extends Phaser.Scene {
 
     // When the game is over
     GameOver() {
+        this.backgroundMusic.stop();
         this.cactusGroup.clear();
         this.obstacle1Group.clear();
         this.carGroup.clear();

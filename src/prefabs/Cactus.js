@@ -9,7 +9,7 @@ class Cactus extends Phaser.Physics.Arcade.Sprite{
         this.setVelocityX(velocity);            // make it go!
         this.setImmovable(true);                    
         this.score = 10;
-        this.hp = 2;
+        this.hp = 3;
         this.body.setAllowGravity(false);
     }
 

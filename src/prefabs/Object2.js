@@ -9,7 +9,7 @@ class Object2 extends Phaser.Physics.Arcade.Sprite {
         this.setVelocityX(velocity);            // make it go!
         this.setImmovable(true);
         this.score = 5;
-        this.hp = 1;
+        this.hp = 0;
         this.body.setAllowGravity(false);
     }
 
