@@ -213,7 +213,7 @@ class Play extends Phaser.Scene {
     addCar() {
         let car = new Car(this, this.carSpeed).setScale(1.0);
         this.carGroup.add(car);
-        this.sound.play("car_music", { volume: 4.0 });
+        this.sound.play("car_music", { volume: 15.0 });
     }
     addFoot() {
         let foot = new Foot(this, 0).setScale(1.0);
@@ -379,7 +379,7 @@ class Play extends Phaser.Scene {
                 this.car.destroy();
                 this.obstacleCollision(this.car);
                 console.log("hit car");
-                this.sound.play("crash_music", { volume: 4.0 });
+                this.sound.play("crash_music", { volume: 5.0 });
             }
             if (this.physics.overlap(this.character, this.object1Group)) {
                 this.object1 = this.object1Group.getFirst(true);
@@ -464,7 +464,7 @@ class Play extends Phaser.Scene {
 
     // Dealling the collision with items
     itemCollision(item) {
-        this.sound.play("pickup_music", { volume: 3.0 });
+        this.sound.play("eat_music", { volume: 4.0 });
         score += item.score;
         if (health < 10) {
             health += item.hp;
