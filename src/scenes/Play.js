@@ -89,7 +89,7 @@ class Play extends Phaser.Scene {
         level = 0;
         count = 0;
         scence = 0;
-        health = 10;
+        health = 1;
         Amo = 10;
         Gameover = false;
         this.levelup = true;
@@ -402,8 +402,8 @@ class Play extends Phaser.Scene {
             }
             if (this.physics.overlap(this.character, this.carGroup)) {
                 this.car = this.carGroup.getFirst(true);
-                this.car.destroy();
                 this.obstacleCollision(this.car);
+                this.car.destroy();
                 // console.log("hit car");
                 this.sound.play("crash_music", { volume: 5.0 });
             }
@@ -511,13 +511,13 @@ class Play extends Phaser.Scene {
             this.GameOver();
             health -= item.hp;
             score += item.score;
+            this.ScoreText.setText('Score: ' + score);
         } else {
             this.sound.play("hit_music", { volume: 2.0 });
             health -= item.hp;
             score += item.score;
             this.HealthText.setText('Health: ' + health);
         }
-        this.ScoreText.setText('Score: ' + score);
     }
 
     objExplode(obj) {
